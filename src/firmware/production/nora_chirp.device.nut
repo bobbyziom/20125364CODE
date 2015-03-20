@@ -273,10 +273,12 @@ class PowerGate {
 
 class Storage {
     
-    collect_max         = 5;
-    default_interval    = 120;
+    collect_max = null;
+    interval    = null;
     
-    constructor() {
+    constructor(_col_max = 5, _interval = 120) {
+        collect_max = _col_max;
+        interval    = _interval;
         if (!("nv" in getroottable())) {
             reset_nv();
         }
@@ -287,7 +289,7 @@ class Storage {
         if (("nv" in getroottable()) && ("max_collect" in ::nv)) {
             ::nv["max_collect"] <- collect_max;
         } else {
-            reset_nv(default_interval, collect_max);
+            reset_nv(interval, collect_max);
         }
     }
     
@@ -296,7 +298,7 @@ class Storage {
         if (("nv" in getroottable()) && ("interval" in ::nv)) {
             ::nv["interval"] <- _interval;
         } else {
-            reset_nv(default_interval, collect_max);
+            reset_nv(interval, collect_max);
         }
     }
     
@@ -316,7 +318,7 @@ class Storage {
         }
     }
     
-    function reset_nv(defint = default_interval, maxcol = collect_max) {
+    function reset_nv(defint = 120, maxcol = 5) {
         ::nv <- { 
             temp = [],
             hum = [],
@@ -326,7 +328,7 @@ class Storage {
             bat = [],
             cyc = [],
             max_collect = maxcol,
-            interval = defint,
+            interval = interval,
             count = 0
         };  
     }
