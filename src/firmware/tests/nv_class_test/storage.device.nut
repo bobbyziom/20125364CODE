@@ -2,7 +2,7 @@ class Storage {
     
     collect_max = null;
     
-    constructor(_collect_max = 4) {
+    constructor(_collect_max = 5) {
         collect_max = _collect_max;
         if (!("nv" in getroottable())) {
             reset_nv();
@@ -19,11 +19,11 @@ class Storage {
     }
     
     function get_nv(key) {
-    	if (("nv" in getroottable()) && (key in ::nv)) {
+        if (("nv" in getroottable()) && (key in ::nv)) {
             return ::nv[key];
-    	} else {
-    	    return null;   
-    	}
+        } else {
+            return null;   
+        }
     }
 
     function append_nv(key, value) {
@@ -41,6 +41,7 @@ class Storage {
             lux = [],
             mois = [],
             time = [],
+            bat = [],
             max_collect = collect_max,
             count = 0
         };  
