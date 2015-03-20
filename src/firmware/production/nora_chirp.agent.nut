@@ -43,7 +43,7 @@ class KeenIO {
     *   millis - optional parameter to specify the milliseconds of the timestamp
     *
     * Returns: 
-    * 	A formated KeenIO timestamp that can be inserted into the Keen event
+    *   A formated KeenIO timestamp that can be inserted into the Keen event
     ***************************************************************************/    
     function getTimestamp(ts, millis = 0) {
         local m = ((millis % 1000) + "000000").slice(0, 6);
@@ -68,6 +68,10 @@ class KeenIO {
 const KEEN_PROJECT_ID = "";
 const KEEN_WRITE_API_KEY = "";
 
+config <- {
+    collect = 10,
+    interval = 125
+}
 // keen object
 keen <- KeenIO(KEEN_PROJECT_ID, KEEN_WRITE_API_KEY);
 
@@ -89,6 +93,18 @@ device.on("print", function(data) {
     
 });
 
+device.on("update", function(data) {
+    
+    // only send new config back if different from current (save wifi time)
+    if(data.collect != config.collect || data.interval != config.interval) {
+        device.send("update", { 
+            collect = config.collect,
+            interval = config.interval
+        });
+    }
+    
+});
+
 function request_handler(request, response) {
 
   response.send(200, "OK");
@@ -96,3 +112,5 @@ function request_handler(request, response) {
 }
  
 http.onrequest(request_handler);
+
+

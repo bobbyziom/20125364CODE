@@ -21,48 +21,6 @@ class Sensor {
         addr = _addr;
         if (i2c) i2c.configure(CLOCK_SPEED_400_KHZ);
     }
-    
-    function get_nv(key) {
-    	if (("nv" in getroottable()) && (key in ::nv)) {
-            return ::nv[key];
-		} else {
-    	    return null;   
-		}
-    }
-    
-    function append_nv(key, value) {
-        if (!("nv" in getroottable())) {
-            ::nv <- {};  
-            ::nv[key] = [ value ];
-        } else {
-            ::nv[key].append(value);
-        }
-    }
-    
-    function set_nv(key, value) {
-        if (!("nv" in getroottable())) ::nv <- {};
-        ::nv[key] <- value;
-    }
-    
-    function dump_nv(root = null) {
-        if ("nv" in getroottable()) {
-            if (root == null) root = ::nv;
-            foreach (k,v in root) {
-                if (typeof v == "array" || typeof v == "table") {
-                    log("NV: " + k + " => " + v)
-                    dump_nv(v);
-                } else {
-                    log("NV: " + k + " => " + v)
-                }
-            }
-        } else {
-            log("NV: Not defined");
-        }
-    }
-    
-    function print_nv() {
-        agent.send("print", nv);
-    }
 
     function reset() {
         if (i2c) {
@@ -70,7 +28,7 @@ class Sensor {
             imp.sleep(0.01);
         }
     }
-	
+    
 }
 
 class Tsl2561 extends Sensor {
@@ -245,15 +203,15 @@ class Battery extends Sensor {
 
     constructor(_pin) {
         base.constructor();
-		pin = _pin;
-		pin.configure(ANALOG_IN);
+        pin = _pin;
+        pin.configure(ANALOG_IN);
     }
 
     function read(callback = null) {
-		local r = pin.read() / 65535.0;
-		local v = hardware.voltage() * r;
-		local p = 100.0 * r;
-		callback({voltage = v});
+        local r = pin.read() / 65535.0;
+        local v = hardware.voltage() * r;
+        local p = 100.0 * r;
+        callback({voltage = v});
     }
 }
 
@@ -313,13 +271,89 @@ class PowerGate {
     
 }
 
+class Storage {
+    
+    collect_max         = 5;
+    default_interval    = 120;
+    
+    constructor() {
+        if (!("nv" in getroottable())) {
+            reset_nv();
+        }
+    }
+    
+    function set_collect_max(_collect_max) {
+        collect_max = _collect_max;
+        if (("nv" in getroottable()) && ("max_collect" in ::nv)) {
+            ::nv["max_collect"] <- collect_max;
+        } else {
+            reset_nv(default_interval, collect_max);
+        }
+    }
+    
+    function set_interval_store(_interval) {
+        default_interval = _interval;
+        if (("nv" in getroottable()) && ("interval" in ::nv)) {
+            ::nv["interval"] <- _interval;
+        } else {
+            reset_nv(default_interval, collect_max);
+        }
+    }
+    
+    function get_nv(key) {
+        if (("nv" in getroottable()) && (key in ::nv)) {
+            return ::nv[key];
+        } else {
+            return null;   
+        }
+    }
+
+    function append_nv(key, value) {
+        if (!("nv" in getroottable())) {
+            ::nv <- {};  
+        } else {
+            ::nv[key].append(value);
+        }
+    }
+    
+    function reset_nv(defint = default_interval, maxcol = collect_max) {
+        ::nv <- { 
+            temp = [],
+            hum = [],
+            lux = [],
+            mois = [],
+            time = [],
+            bat = [],
+            cyc = [],
+            max_collect = maxcol,
+            interval = defint,
+            count = 0
+        };  
+    }
+    
+    function full_nv() {
+        ::nv["count"]++;
+        if(::nv["count"] >= collect_max) {
+            return true;
+        } else {
+            return false;
+        }
+    }  
+    
+    function configured() {
+        return (!("nv" in getroottable()));
+    }
+    
+}
+
 // sensor instantiation and pin config
 temphum     <- Si7021(hardware.i2c89);
 light       <- Tsl2561(hardware.i2c89);
 moisture    <- Chirp25(hardware.i2c89);
 battery     <- Battery(hardware.pin7);
 feedback    <- FeedbackLed(hardware.pinC, hardware.pinE);
-gate        <- PowerGate(hardware.pin2, hardware.pin5);  
+gate        <- PowerGate(hardware.pin2, hardware.pin5);
+store       <- Storage();
 
 // value table instatiation
 reading     <- {};
@@ -328,19 +362,27 @@ reading     <- {};
 function connection_handler(reason) {
     
     if(reason == SERVER_CONNECTED) {
-        agent.send("keen", reading);
         
-        /*
-        foreach(i, k in reading) {
-            if(i == "data") {
-                foreach(name, value in k) {
-                    server.log(name + "; " + value);
-                }
-            } else {
-                server.log(i + "; " + k);
-            }
+        // send data to the server
+        agent.send("send", {
+            humidity = ::nv["hum"],
+            temp = ::nv["temp"],
+            lux = ::nv["lux"],
+            moisture = ::nv["mois"],
+            timestamp = ::nv["time"],
+            battery = ::nv["bat"],
+            collect_cycle = ::nv["cyc"]
+        });
+        
+        foreach(v in nv.cyc) {
+            server.log(v);
         }
-        */
+        
+        // clear readings nv table
+        store.reset_nv();
+        
+        // check for updates
+        agent.send("update", { interval = nv.interval, collect = nv.max_collect }); 
         
     }
     
@@ -349,7 +391,7 @@ function connection_handler(reason) {
 
 } 
 
-function send() {
+function update() {
     if (server.isconnected()) {
         connection_handler(SERVER_CONNECTED);
     } else {
@@ -359,45 +401,46 @@ function send() {
 
 function run() {
     
-    feedback.danger();
-    
     gate.open();
+    feedback.danger();
     
     light.read(function(lux) {
          moisture.read(function(moist) { 
             battery.read(function(bat) {
-
-                reading.data <- {
-                    moisture = moist.pct,
-                    lux = lux,
-                    humidity = format("%0.1f", temphum.readRH()).tofloat(),
-                    temp = format("%0.1f", temphum.readPrevTemp()).tofloat(),
-                    battery = bat.voltage
-                }
                 
-                reading.timestamp <- date().time;
+                store.append_nv("temp", format("%0.1f", temphum.readPrevTemp()).tofloat());
+                store.append_nv("hum", format("%0.1f", temphum.readRH()).tofloat());
+                store.append_nv("lux", lux);
+                store.append_nv("mois", moist.pct);
+                store.append_nv("time", time());
+                store.append_nv("bat", bat.voltage);
                 
-                // find out how long time in sensor collect mode (setting stop time)
+                feedback.success();
+                gate.close();
+                
+                // set stop timestamp for sensor collect mode (10mA)
                 collect_stop = hardware.millis();
-            
-                // check if nv-table is full
-                // write data to nv table if there's space and goto deepsleep
                 
-                // else send data to the server
-                send();
+                // log collection time
+                store.append_nv("cyc", (collect_stop - duty_start));
+                
+                // check if exeeding NV table max size
+                // if so: connect to wifi, send nv data and update device config if any changes
+                
+                if(store.full_nv()) {
+                    update();
+                } else {
+                    imp.onidle(sleep);
+                }
                 
                 // debug:
                 //agent.send("keen", reading);
                 //imp.wakeup(10, read_sensors);
                 
-                // disable sensor 3V before sending and sleep mode
-                gate.close();
-                
-                feedback.success();
-                
             });
         });
     });
+ 
     
 }
 
@@ -411,8 +454,17 @@ function sleep() {
     server.log("collected data for: " + total_collect);
     server.log("online for: " + total_online);
 
-	server.sleepfor(120);
+    server.sleepfor(120);
 }
+
+agent.on("update", function(config) {
+   
+   store.set_collect_max(config.collect);
+   store.set_interval_store(config.interval);
+   
+   server.log("Updated!");
+    
+});
 
 // start of program
 run();
