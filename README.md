@@ -1,6 +1,4 @@
-# 20125364CODE
+# chrip-nora
 
-Bachelors project MED6 2015
-Aalborg University Copenhagen
-
-MIT Licence
+Combined Bachelors (MED) and Masters (DIST) project 2015.
+Aalborg University Copenhagen.
