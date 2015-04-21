@@ -1,5 +1,5 @@
 class Storage {
-    
+    //Torben Poulsen!
     collect_max = null;
     
     constructor(_collect_max = 5) {
