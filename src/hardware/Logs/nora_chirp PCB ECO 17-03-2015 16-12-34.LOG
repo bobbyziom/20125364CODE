@@ -1,0 +1,10 @@
+Removed Pin From Net: NetName=SCL Pin=R8-1
+Removed Pin From Net: NetName=VBAT/3V0 Pin=R8-2
+Removed Pin From Net: NetName=SDA Pin=R15-1
+Removed Pin From Net: NetName=VBAT/3V0 Pin=R15-2
+Removed Member From Class: ClassName=nora_chirp Member=R15
+Removed Member From Class: ClassName=nora_chirp Member=R16
+Added Pin To Net: NetName=3V0_SENS Pin=R8-1
+Added Pin To Net: NetName=SENS_DRAIN Pin=R8-2
+Added Member To Class: ClassName=nora_chirp Member=Component R7 Resistor
+Added Member To Class: ClassName=nora_chirp Member=Component R8 Resistor

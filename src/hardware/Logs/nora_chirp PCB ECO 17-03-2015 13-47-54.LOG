@@ -1,0 +1,5 @@
+Change Component Footprint: Designator=Q2 Old Footprint=SOT95P300X130-3N New Footprint=SOT65P210X110-3N
+Added Component: Designator=R90(RESC1005X04N)
+Added Pin To Net: NetName=3V0_SENS Pin=R90-1
+Added Pin To Net: NetName=NetR90_2 Pin=R90-2
+Added Member To Class: ClassName=nora_chirp Member=Component R90 Resistor

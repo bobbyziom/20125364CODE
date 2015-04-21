@@ -1,0 +1,4 @@
+Added Pin To Net: NetName=SDA Pin=Chirp-2
+Added Pin To Net: NetName=SCL Pin=Chirp-5
+Added Pin To Net: NetName=SCL Pin=U90-4
+Added Pin To Net: NetName=SDA Pin=U90-6

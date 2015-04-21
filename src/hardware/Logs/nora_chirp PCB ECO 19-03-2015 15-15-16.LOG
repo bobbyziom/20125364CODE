@@ -1,0 +1,12 @@
+Removed Pin From Net: NetName=GND Pin=C70-1
+Removed Pin From Net: NetName=VBAT/2V75 Pin=C70-2
+Removed Pin From Net: NetName=VBAT/2V75 Pin=R70-2
+Removed Pin From Net: NetName=SCL Pin=U70-1
+Removed Pin From Net: NetName=GND Pin=U70-2
+Removed Pin From Net: NetName=VBAT/2V75 Pin=U70-4
+Removed Pin From Net: NetName=VBAT/2V75 Pin=U70-5
+Removed Pin From Net: NetName=SDA Pin=U70-6
+Removed Member From Class: ClassName=nora_chirp Member=C70
+Removed Member From Class: ClassName=nora_chirp Member=R70
+Removed Member From Class: ClassName=nora_chirp Member=U70
+Added Room: Name=nora_chirp

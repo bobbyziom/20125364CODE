@@ -1,0 +1,6 @@
+Added Component: Designator=Chirp(Chirp HDR3+1)
+Added Pin To Net: NetName=3V0_SENS Pin=Chirp-1
+Added Pin To Net: NetName=SDA_SEN Pin=Chirp-2
+Added Pin To Net: NetName=GND Pin=Chirp-3
+Added Pin To Net: NetName=SCL_SEN Pin=Chirp-5
+Added Member To Class: ClassName=nora_chirp Member=Component Chirp 

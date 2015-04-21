@@ -1,0 +1,13 @@
+DRC Rules Export File for PCB: \\psf\Google Drive\Lucidchart\Bobby Technologies\Company\Bobby Devices\nora chirp\nora_chirp.PcbDoc
+RuleKind=SolderMaskExpansion|RuleName=SolderMaskExpansion|Scope=Board|Minimum=4.00
+RuleKind=ShortCircuit|RuleName=ShortCircuit|Scope=Board|Allowed=0
+RuleKind=Width|RuleName=Width|Scope=Board|Minimum=6.00
+RuleKind=Width|RuleName=50_OHM|Scope=Board|Minimum=8.96
+RuleKind=Clearance|RuleName=XTAL Clearance|Scope=Board|Minimum=30.00
+RuleKind=Clearance|RuleName=Pad Clearance|Scope=Board|Minimum=8.00
+RuleKind=Clearance|RuleName=Clearance|Scope=Board|Minimum=6.00
+RuleKind=Clearance|RuleName=Polygon to All|Scope=Board|Minimum=8.00
+RuleKind=Clearance|RuleName=50_OHM to Poly|Scope=Board|Minimum=30.00
+RuleKind=Clearance|RuleName=Diff to Poly|Scope=Board|Minimum=30.00
+RuleKind=Clearance|RuleName=NPTH Clearance|Scope=Board|Minimum=10.00
+RuleKind=Clearance|RuleName=I2C clearance|Scope=Board|Minimum=8.00

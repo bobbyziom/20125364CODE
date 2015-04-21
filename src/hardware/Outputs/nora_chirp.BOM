@@ -1,0 +1,31 @@
+Bill of Material for 
+On 19-03-2015 at 09:48:01
+
+ Comment             Pattern     Quantity  Components
+------------------------------------------------------------------------------
+ BATTERY             12BH321P-GR      1    BAT1                         2xAA Series Battery Clip with Through-Hole PCB Mount 
+ Ceramic Capacitor   CAPC1005X07N    16    C1, C2, C3, C4, C10, C22, C30 CAP,X5R,1.0uF,10%,6.3V, 0402,# 
+                                           C40, C41, C42, C50, C51, C61
+                                           C70, C80, C90
+ Ceramic Capacitor   CAPC1608X10N     1    C31                          CAP,X5R,4.7uF,10%,6.3V,0603,# 
+ Ceramic Capacitor   CAPC2012X14N     3    C21, C23, C24                CAP,X5R,22uF,10%,6.3V,0805,# 
+ Dual Schottky Diode SOT95P300X130-3N    1    D50                          DIODE, Schottky, 200mA, 30V, Dual, Common Cathode, SOT23 
+ Header 3+1 Chirp    Chirp HDR3+1     1    Chirp                        header for chirp     
+ imp module          IMP_MODULE       1    U1                           Module, Electric Imp Solder Down with Antenna 
+ Inductor            INDP6060X28N     1    L20                          IND, 4.7uH, 20%, 2.7A Isat, 403 mOhm, 6028 
+ LED IR              LED3324X17N      1    D30                          LED, IR, 1.6V@70mA, 850nm, SMT 
+ LED Red and Green   LED1616X07N-REDGREEN    1    D1                           LED, Red and Green, 2/2V, 631/571nm, 25/35mcd, SMT 
+ LIS3DHTR            LGA50P300X300X100-16N-ST    1    U50                          IC, Accelerometer, 3-Axis, Low Power, 16-bit, LGA16 
+ MIC841              SOT65P200X125-5N    1    U10                          IC, Comparator with Reference and Programmable Hysteresis, SOT-353 
+ N-Channel MOSFET    SOT95P300X130-3N    3    Q10, Q11, Q20                NFET, 20V, 4.2A, SOT23 
+ PFET                SOT65P210X110-3N    1    Q2                           PFET, 20V, 820mA, 1V, SOT323 
+ PHOTOTRANSISTOR     PHOTOTRANS2012X13    1    Q1                           Phototrans, Clear, Top View, 940nm, 0.4V, 1mA, 0805 
+ Polarized Capacitor CAPAE8983X55N    1    C20                          CAP,Alum,330uF,20%,6.3V,SMD 
+ Resistor            RESC1005X04N    23    R1, R2, R3, R4, R5, R6, R7   RES,100k,5%,0.063W,0402,# 
+                                           R8, R9, R10, R11, R12, R13
+                                           R14, R20, R21, R30, R31, R40
+                                           R50, R61, R70, R90
+ SI1145              QFN50P200X200X75-10N    1    U30                          IC, Sensor, ALS, I2C, QFN10 
+ SI7021              QFN100P300X300X80_HS-7N    1    U80                          IC, Sensor, Temp+Humidity, SI7021, +/-2% RH, DFN6 
+ TSL2561             TSL2561          1    U90                          IC, Sensor,ALS,I2C,640nm/940nm,SMT 
+ XC9128              MSOP50P490X116-10N    1    U20                          IC, DC/DC boost,Adjustable, 6 VIN, 500mA, MSOP10 

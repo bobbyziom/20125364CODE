@@ -1,0 +1,404 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html">
+<style type="text/css">
+		h1, h2, h3, h4, h5, h6 {
+			font-family : sans-serif;
+			color : white;
+			background-color : #21489e;
+			padding: 0.3em;
+		}
+		body {
+			font-family : verdana;
+		}
+		td, th {
+			padding: 0.5em;
+			text-align : center;
+			width : 18%;
+		}
+		th {
+			background-color : #A6CAF0;
+
+		}
+		th.column1, td.column1 {
+			text-align: left;
+			width : auto;
+		}
+		table {
+			width : 100%;
+		}
+		
+		.DRC_summary_header {							
+			padding-bottom : 0.1em;
+			border : 0px solid black;							
+			width: 100%;
+                        align: right;
+                        
+		}
+
+		.DRC_summary_header_col1, 
+		.DRC_summary_header_col2, 
+		.DRC_summary_header_col3
+		{
+			color : black;
+			font-size:150%;
+                        padding : 0em;
+			padding-top : 0.2em;
+			padding-bottom 0.2: 0em;
+			border : 0px solid black;
+			width : auto;
+			vertical-align: top;
+			font-weight: bold;				
+		}
+		
+		.DRC_summary_header_col1 	
+		{		                       
+			text-align: right;
+                        width: auto;	
+		}
+
+		.DRC_summary_header_col2 	
+		{		
+			text-align: center;	
+		}
+
+		.DRC_summary_header_col3 	
+		{		
+			text-align: left;	
+		}
+
+
+		
+		.header_holder
+		{
+		Width = 100%;
+		border = 0px solid green;
+		padding = 0;
+		}
+		
+		
+		
+		.front_matter, .front_matter_column1, .front_matter_column2, .front_matter_column3
+                {
+			left:0;
+			top:0;
+			padding-top : 0.1em;			
+			border : 0px solid black;
+			width : 100%;
+			vertical-align: top
+
+		}
+		.front_matter {	
+			
+			margin-top: 5px;
+ 			margin-left: 0px;					 			
+ 			horizontal-align: left;
+		}
+				
+		
+		.front_matter_column1 {
+			width : 10em;	
+			text-align  : right;
+			padding-right:0.1em;
+			
+		}
+		
+		.front_matter_column2 {
+                        width: 0.1em;
+			align: center;
+			text-align : center;
+			margin-right  : 0.1em;	
+			margin-left   : 0.1em;
+		}
+		.front_matter_column3 {
+			width         : auto;  
+			text-align    : left;	
+			margin-right  : 0.5em;				
+		}
+		
+		.total_column1, .total_column {
+			font-weight : bold;
+		}
+		.total_column1 {
+			text-align : right;
+		}
+		.warning, .error {
+			color : red;
+			font-weight : bold;
+		}
+		tr.onmouseout_odd {
+			background-color : #EEEEE0 
+		}
+		tr.onmouseout_even { 
+			background-color : #F3F3E3   
+		}
+		tr.onmouseover_odd, tr.onmouseover_even { 
+			background-color : lightYellow
+		} 
+		a:link, a:visited, .q a:link,.q a:active,.q {
+			color: #21489e; 
+		}
+		a:link.callback, a:visited.callback { 
+			color: #008000 
+		}
+		a:link.customize, a:visited.customize {
+			color: #C0C0C0;
+			position: absolute; 
+			right: 10px;
+		}	
+		p.contents_level1 {
+			font-weight : bold;
+			font-size : 110%;
+			margin : 0.5em;
+		}
+		p.contents_level2 {
+			position : relative;
+			left : 20px;
+			margin : 0.5em;
+		}
+	</style><script type="text/javascript">
+		function coordToMils(coord) {
+			var number = coord / 10000;
+			
+			if (number != number.toFixed(3))
+				number = number.toFixed(3);
+
+			return number + 'mil'
+		}
+
+		function coordToMM(coord) {
+			var number = 0.0254 * coord / 10000;
+			
+			if (number != number.toFixed(4))
+				number = number.toFixed(4);
+			
+			return number + 'mm'
+		}
+	
+		function convertCoord(coordNode, units) {
+			for (var i = 0; i < coordNode.childNodes.length; i++) {
+				coordNode.removeChild(coordNode.childNodes[i]);
+			}
+
+			var coord = coordNode.getAttribute('value');
+			if (coord != null) {
+				if (units == 'mm') {
+					textNode = document.createTextNode(coordToMM(coord));
+					coordNode.appendChild(textNode);
+				} else if (units == 'mil') {
+					textNode = document.createTextNode(coordToMils(coord));		
+					coordNode.appendChild(textNode);	
+				}
+			}
+		}
+	
+		function convertUnits(unitNode, units) {
+			for (var i = 0; i < unitNode.childNodes.length; i++) {
+				unitNode.removeChild(unitNode.childNodes[i]);		
+			}
+		
+			textNode = document.createTextNode(units); 
+			unitNode.appendChild(textNode);
+		}
+	
+		function changeUnits(radio_input, units) {
+			if (radio_input.checked) {
+			
+				var elements = document.getElementsByName('coordinate');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertCoord(elements[i], units);
+					}
+				}
+	
+				var elements = document.getElementsByName('units');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertUnits(elements[i], units);
+					}
+				}
+			}
+		}
+	</script><title>Design Rule Verification Report</title>
+</head>
+<body onload=""><img ALT="Altium" src="
+			file://C:\Users\Public\Documents\Altium\AD14\Templates\AD-rgb_logo_223x64.gif
+		"><a href="dxpprocess://Client:SetupPreferences?Server=PCB|PageName=Reports" class="customize"><acronym title="dxpprocess://Client:SetupPreferences?Server=PCB|PageName=Reports">customize</acronym></a><h1>Design Rule Verification Report</h1>
+<table class="header_holder">
+<td Style="width:70%">
+<table class="front_matter">
+<tr class="front_matter">
+<td class="front_matter_column1">Date</td>
+<td class="front_matter_column2">:</td>
+<td class="front_matter_column3">23-03-2015</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Time</td>
+<td class="front_matter_column2">:</td>
+<td class="front_matter_column3">14:35:36</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Elapsed Time</td>
+<td class="front_matter_column2">:</td>
+<td class="front_matter_column3">00:00:05</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Filename</td>
+<td class="front_matter_column2">:</td>
+<td class="front_matter_column3"><a href="file:///\\psf\Google Drive\Lucidchart\Bobby Technologies\Company\Bobby Devices\nora chirp\nora_chirp.PcbDoc" class="file"><acronym title="\\psf\Google Drive\Lucidchart\Bobby Technologies\Company\Bobby Devices\nora chirp\nora_chirp.PcbDoc">\\psf\Google Drive\Lucidchart\Bobby Technologies\Company\Bobby Devices\nora chirp\nora_chirp.PcbDoc</acronym></a></td>
+</tr>
+</table>
+</td>
+<td Style="Width:30%">
+<table class="DRC_summary_header">
+<tr>
+<td class="DRC_summary_header_col1">Warnings</td>
+<td class="DRC_summary_header_col2">:</td>
+<td class="DRC_summary_header_col3">0</td></tr>
+<tr>
+<td class="DRC_summary_header_col1">Rule Violations</td>
+<td class="DRC_summary_header_col2">:</td>
+<td class="DRC_summary_header_col3" style="color : red">7</td></tr>
+</table>
+</td>
+</table>
+<hr><a name="IDASAAUB"><h2>Summary</h2></a><table>
+<tr>
+<th class="column1">Warnings</th>
+<th class="column2">Count</th>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">0</td>
+</tr>
+</table><br><table>
+<tr>
+<th class="column1">Rule Violations</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDAEBAUB">Clearance Constraint (Gap=8mil) ((InNet('SCL') AND IsTrack)),((InNet('SDA') AND IsTrack))</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDAKBAUB">Clearance Constraint (Gap=10mil) (IsThruPin and (not PadIsPlated)),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDAQBAUB">Clearance Constraint (Gap=30mil) ((InDifferentialPairClass('All Differential Pairs')) OR InNet('PinA') OR InNet('PinB')),(InPolygon)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDAWBAUB">Clearance Constraint (Gap=30mil) (InNetClass('50_OHM') and (IsTrack or IsArc)),(InPolygon)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDA2BAUB">Clearance Constraint (Gap=8mil) (InPolygon),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDACCAUB">Clearance Constraint (Gap=6mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDAICAUB">Clearance Constraint (Gap=8mil) (IsPad),(IsPad)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDAOCAUB">Clearance Constraint (Gap=30mil) ((InNet('OSC32_IN') OR InNet('OSC32_OUT') OR InComponent('Y1'))),(InPolygon)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDAUCAUB">Width Constraint (Min=50,00ohms) (Max=50,00ohms) (Preferred=50,00ohms) (InNetClass('50_OHM'))</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDA0CAUB">Width Constraint (Min=6mil) (Max=100mil) (Preferred=10mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDAADAUB">Hole To Hole Clearance (Gap=6mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDAGDAUB">Minimum Solder Mask Sliver (Gap=1mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDAMDAUB">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDASDAUB">Un-Routed Net Constraint ( (All) )</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDAYDAUB">Power Plane Connect Rule(Relief Connect )(Expansion=20mil) (Conductor Width=10mil) (Air Gap=10mil) (Entries=4) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDA4DAUB">Component Clearance Constraint ( Horizontal Gap = 10mil, Vertical Gap = 10mil ) (All),(All) </a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDAEEAUB">Height Constraint (Min=0mil) (Max=1000mil) (Prefered=500mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDAKEAUB">Silk To Solder Mask (Clearance=7.874mil) (IsPad),(Not HasFootprint('IMP_MODULE'))</a></td>
+<td class="column2">3</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDALFAUB">Silk to Silk (Clearance=3.937mil) (All),(All)</a></td>
+<td class="column2">4</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDAVGAUB">Net Antennae (Tolerance=0mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDA1GAUB">Hole Size Constraint (Min=1mil) (Max=125mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">7</td>
+</tr>
+</table><br><hr><a name="IDAKEAUB"><table>
+<tr>
+<th style="text-align : left" colspan="2" class="rule">Silk To Solder Mask (Clearance=7.874mil) (IsPad),(Not HasFootprint('IMP_MODULE'))</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=\\psf\Google Drive\Lucidchart\Bobby Technologies\Company\Bobby Devices\nora chirp\nora_chirp.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9919.132mil|Location2.X=9948.66mil|Location1.Y=3452.992mil|Location2.Y=3460.865mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=\\psf\Google Drive\Lucidchart\Bobby Technologies\Company\Bobby Devices\nora chirp\nora_chirp.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9919.132mil|Location2.X=9948.66mil|Location1.Y=3452.992mil|Location2.Y=3460.865mil|Absolute=True">Track (1043.07mil,-543.072mil)(1064.724mil,-543.072mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=\\psf\Google Drive\Lucidchart\Bobby Technologies\Company\Bobby Devices\nora chirp\nora_chirp.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9927.968mil|Location2.X=9975.338mil|Location1.Y=3464.513mil|Location2.Y=3590.623mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=\\psf\Google Drive\Lucidchart\Bobby Technologies\Company\Bobby Devices\nora chirp\nora_chirp.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9927.968mil|Location2.X=9975.338mil|Location1.Y=3464.513mil|Location2.Y=3590.623mil|Absolute=True">Pad U1-34(1071.653mil,-472.433mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=\\psf\Google Drive\Lucidchart\Bobby Technologies\Company\Bobby Devices\nora chirp\nora_chirp.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8836.415mil|Location2.X=8885.703mil|Location1.Y=3715.001mil|Location2.Y=3816.867mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=\\psf\Google Drive\Lucidchart\Bobby Technologies\Company\Bobby Devices\nora chirp\nora_chirp.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8836.415mil|Location2.X=8885.703mil|Location1.Y=3715.001mil|Location2.Y=3816.867mil|Absolute=True">Text "R50" (0mil,-280mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=\\psf\Google Drive\Lucidchart\Bobby Technologies\Company\Bobby Devices\nora chirp\nora_chirp.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8862.811mil|Location2.X=8902.307mil|Location1.Y=3807.536mil|Location2.Y=3843.095mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=\\psf\Google Drive\Lucidchart\Bobby Technologies\Company\Bobby Devices\nora chirp\nora_chirp.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8862.811mil|Location2.X=8902.307mil|Location1.Y=3807.536mil|Location2.Y=3843.095mil|Absolute=True">Pad D2-AG(2.559mil,-174.685mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=\\psf\Google Drive\Lucidchart\Bobby Technologies\Company\Bobby Devices\nora chirp\nora_chirp.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8836.415mil|Location2.X=8885.703mil|Location1.Y=3715.001mil|Location2.Y=3816.867mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=\\psf\Google Drive\Lucidchart\Bobby Technologies\Company\Bobby Devices\nora chirp\nora_chirp.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8836.415mil|Location2.X=8885.703mil|Location1.Y=3715.001mil|Location2.Y=3816.867mil|Absolute=True">Text "R50" (0mil,-280mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=\\psf\Google Drive\Lucidchart\Bobby Technologies\Company\Bobby Devices\nora chirp\nora_chirp.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8807.692mil|Location2.X=8847.188mil|Location1.Y=3807.536mil|Location2.Y=3843.095mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=\\psf\Google Drive\Lucidchart\Bobby Technologies\Company\Bobby Devices\nora chirp\nora_chirp.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8807.692mil|Location2.X=8847.188mil|Location1.Y=3807.536mil|Location2.Y=3843.095mil|Absolute=True">Pad D2-KG(-52.559mil,-174.685mil)  Top Layer</acronym></a></td>
+</tr>
+</table></a><a href="#top">Back to top</a><br><br><a name="IDALFAUB"><table>
+<tr>
+<th style="text-align : left" colspan="2" class="rule">Silk to Silk (Clearance=3.937mil) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=\\psf\Google Drive\Lucidchart\Bobby Technologies\Company\Bobby Devices\nora chirp\nora_chirp.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9844.999mil|Location2.X=9948.274mil|Location1.Y=3309.297mil|Location2.Y=3359.082mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=\\psf\Google Drive\Lucidchart\Bobby Technologies\Company\Bobby Devices\nora chirp\nora_chirp.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9844.999mil|Location2.X=9948.274mil|Location1.Y=3309.297mil|Location2.Y=3359.082mil|Absolute=True">Text "C90" (970mil,-685mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=\\psf\Google Drive\Lucidchart\Bobby Technologies\Company\Bobby Devices\nora chirp\nora_chirp.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9919.132mil|Location2.X=9948.66mil|Location1.Y=3344.133mil|Location2.Y=3352.008mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=\\psf\Google Drive\Lucidchart\Bobby Technologies\Company\Bobby Devices\nora chirp\nora_chirp.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9919.132mil|Location2.X=9948.66mil|Location1.Y=3344.133mil|Location2.Y=3352.008mil|Absolute=True">Track (1043.07mil,-651.93mil)(1064.724mil,-651.93mil)  Top Overlay</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=\\psf\Google Drive\Lucidchart\Bobby Technologies\Company\Bobby Devices\nora chirp\nora_chirp.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9844.999mil|Location2.X=9948.274mil|Location1.Y=3309.297mil|Location2.Y=3359.082mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=\\psf\Google Drive\Lucidchart\Bobby Technologies\Company\Bobby Devices\nora chirp\nora_chirp.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9844.999mil|Location2.X=9948.274mil|Location1.Y=3309.297mil|Location2.Y=3359.082mil|Absolute=True">Text "C90" (970mil,-685mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=\\psf\Google Drive\Lucidchart\Bobby Technologies\Company\Bobby Devices\nora chirp\nora_chirp.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9919.132mil|Location2.X=9927.006mil|Location1.Y=3344.133mil|Location2.Y=3357.914mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=\\psf\Google Drive\Lucidchart\Bobby Technologies\Company\Bobby Devices\nora chirp\nora_chirp.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9919.132mil|Location2.X=9927.006mil|Location1.Y=3344.133mil|Location2.Y=3357.914mil|Absolute=True">Track (1043.07mil,-651.93mil)(1043.07mil,-646.024mil)  Top Overlay</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=\\psf\Google Drive\Lucidchart\Bobby Technologies\Company\Bobby Devices\nora chirp\nora_chirp.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10081.415mil|Location2.X=10130.703mil|Location1.Y=3355.001mil|Location2.Y=3456.95mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=\\psf\Google Drive\Lucidchart\Bobby Technologies\Company\Bobby Devices\nora chirp\nora_chirp.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10081.415mil|Location2.X=10130.703mil|Location1.Y=3355.001mil|Location2.Y=3456.95mil|Absolute=True">Text "U90" (1245mil,-640mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=\\psf\Google Drive\Lucidchart\Bobby Technologies\Company\Bobby Devices\nora chirp\nora_chirp.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10077.993mil|Location2.X=10085.867mil|Location1.Y=3344.133mil|Location2.Y=3357.914mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=\\psf\Google Drive\Lucidchart\Bobby Technologies\Company\Bobby Devices\nora chirp\nora_chirp.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10077.993mil|Location2.X=10085.867mil|Location1.Y=3344.133mil|Location2.Y=3357.914mil|Absolute=True">Track (1201.93mil,-651.93mil)(1201.93mil,-646.024mil)  Top Overlay</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=\\psf\Google Drive\Lucidchart\Bobby Technologies\Company\Bobby Devices\nora chirp\nora_chirp.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8986.415mil|Location2.X=9035.703mil|Location1.Y=3645.001mil|Location2.Y=3717.266mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=\\psf\Google Drive\Lucidchart\Bobby Technologies\Company\Bobby Devices\nora chirp\nora_chirp.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8986.415mil|Location2.X=9035.703mil|Location1.Y=3645.001mil|Location2.Y=3717.266mil|Absolute=True">Text "R8" (150mil,-350mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=\\psf\Google Drive\Lucidchart\Bobby Technologies\Company\Bobby Devices\nora chirp\nora_chirp.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8946.415mil|Location2.X=8995.703mil|Location1.Y=3640.001mil|Location2.Y=3712.763mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=\\psf\Google Drive\Lucidchart\Bobby Technologies\Company\Bobby Devices\nora chirp\nora_chirp.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8946.415mil|Location2.X=8995.703mil|Location1.Y=3640.001mil|Location2.Y=3712.763mil|Absolute=True">Text "R6" (110mil,-355mil)  Top Overlay</acronym></a></td>
+</tr>
+</table></a><a href="#top">Back to top</a><br><br></body>
+</html>

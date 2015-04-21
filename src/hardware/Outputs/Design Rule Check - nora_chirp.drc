@@ -1,0 +1,85 @@
+Protel Design System Design Rule Check
+PCB File : \\psf\Google Drive\Lucidchart\Bobby Technologies\Company\Bobby Devices\nora chirp\nora_chirp.PcbDoc
+Date     : 23-03-2015
+Time     : 14:35:36
+
+Processing Rule : Clearance Constraint (Gap=8mil) ((InNet('SCL') AND IsTrack)),((InNet('SDA') AND IsTrack))
+Rule Violations :0
+
+Processing Rule : Clearance Constraint (Gap=10mil) (IsThruPin and (not PadIsPlated)),(All)
+Rule Violations :0
+
+Processing Rule : Clearance Constraint (Gap=30mil) ((InDifferentialPairClass('All Differential Pairs')) OR InNet('PinA') OR InNet('PinB')),(InPolygon)
+Rule Violations :0
+
+Processing Rule : Clearance Constraint (Gap=30mil) (InNetClass('50_OHM') and (IsTrack or IsArc)),(InPolygon)
+Rule Violations :0
+
+Processing Rule : Clearance Constraint (Gap=8mil) (InPolygon),(All)
+Rule Violations :0
+
+Processing Rule : Clearance Constraint (Gap=6mil) (All),(All)
+Rule Violations :0
+
+Processing Rule : Clearance Constraint (Gap=8mil) (IsPad),(IsPad)
+Rule Violations :0
+
+Processing Rule : Clearance Constraint (Gap=30mil) ((InNet('OSC32_IN') OR InNet('OSC32_OUT') OR InComponent('Y1'))),(InPolygon)
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=50,00ohms) (Max=50,00ohms) (Preferred=50,00ohms) (InNetClass('50_OHM'))
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=6mil) (Max=100mil) (Preferred=10mil) (All)
+Rule Violations :0
+
+Processing Rule : Hole To Hole Clearance (Gap=6mil) (All),(All)
+Rule Violations :0
+
+Processing Rule : Minimum Solder Mask Sliver (Gap=1mil) (All),(All)
+Rule Violations :0
+
+Processing Rule : Short-Circuit Constraint (Allowed=No) (All),(All)
+Rule Violations :0
+
+Processing Rule : Un-Routed Net Constraint ( (All) )
+Rule Violations :0
+
+Processing Rule : Power Plane Connect Rule(Relief Connect )(Expansion=20mil) (Conductor Width=10mil) (Air Gap=10mil) (Entries=4) (All)
+Rule Violations :0
+
+Processing Rule : Component Clearance Constraint ( Horizontal Gap = 10mil, Vertical Gap = 10mil ) (All),(All) 
+Rule Violations :0
+
+Processing Rule : Height Constraint (Min=0mil) (Max=1000mil) (Prefered=500mil) (All)
+Rule Violations :0
+
+Processing Rule : Silk To Solder Mask (Clearance=7.874mil) (IsPad),(Not HasFootprint('IMP_MODULE'))
+   Violation between Track (1043.07mil,-543.072mil)(1064.724mil,-543.072mil)  Top Overlay and 
+                     Pad U1-34(1071.653mil,-472.433mil)  Top Layer
+   Violation between Text "R50" (0mil,-280mil)  Top Overlay and 
+                     Pad D2-AG(2.559mil,-174.685mil)  Top Layer
+   Violation between Text "R50" (0mil,-280mil)  Top Overlay and 
+                     Pad D2-KG(-52.559mil,-174.685mil)  Top Layer
+Rule Violations :3
+
+Processing Rule : Silk to Silk (Clearance=3.937mil) (All),(All)
+   Violation between Text "C90" (970mil,-685mil)  Top Overlay and 
+                     Track (1043.07mil,-651.93mil)(1064.724mil,-651.93mil)  Top Overlay
+   Violation between Text "C90" (970mil,-685mil)  Top Overlay and 
+                     Track (1043.07mil,-651.93mil)(1043.07mil,-646.024mil)  Top Overlay
+   Violation between Text "U90" (1245mil,-640mil)  Top Overlay and 
+                     Track (1201.93mil,-651.93mil)(1201.93mil,-646.024mil)  Top Overlay
+   Violation between Text "R8" (150mil,-350mil)  Top Overlay and 
+                     Text "R6" (110mil,-355mil)  Top Overlay
+Rule Violations :4
+
+Processing Rule : Net Antennae (Tolerance=0mil) (All)
+Rule Violations :0
+
+Processing Rule : Hole Size Constraint (Min=1mil) (Max=125mil) (All)
+Rule Violations :0
+
+
+Violations Detected : 7
+Time Elapsed        : 00:00:05

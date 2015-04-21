@@ -1,0 +1,19 @@
+Removed Pin From Net: NetName=GND Pin=Q2-2
+Removed Pin From Net: NetName=NTC Pin=R8-1
+Removed Pin From Net: NetName=NetQ2_3 Pin=R8-2
+Removed Pin From Net: NetName=NTC_EN Pin=R9-1
+Removed Pin From Net: NetName=GND Pin=R9-2
+Change Component DesignItemId : Designator=Q2 Old DesignItemId=NFET00003 New DesignItemId=PFET00009
+Change Component DesignItemId : Designator=R8 Old DesignItemId=RES00006 New DesignItemId=RES00001
+Change Component Comment : Designator=Q2 Old Comment=N-Channel MOSFET New Comment=PFET
+Change Component Description : Designator=Q2 Old Description=NFET, 25V, 220mA, SOT23 New Description=PFET, 20V, 820mA, 1V, SOT323
+Change Component Description : Designator=R8 Old Description=RES,10K,5%,0.063W,0402,# New Description=RES,100K,5%,0.063W,0402,#
+Change Component Kind : Designator=Q40 Old Kind=Standard (No BOM) New Kind=Standard
+Added Pin To Net: NetName=VBAT/2V75 Pin=Q2-2
+Added Pin To Net: NetName=NetQ2_3 Pin=R8-1
+Added Pin To Net: NetName=NTC Pin=R8-2
+Added Pin To Net: NetName=VBAT/2V75 Pin=R9-1
+Added Pin To Net: NetName=NTC_EN Pin=R9-2
+Change Net Name : Old Net Name=NetQ2_3 New Net Name=3V0_CHIRP
+Change Net Name : Old Net Name=NTC New Net Name=CHIRP_DRAIN
+Change Net Name : Old Net Name=NTC_EN New Net Name=CHIRP_EN_L

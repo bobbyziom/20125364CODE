@@ -1,0 +1,16 @@
+Removed Pin From Net: NetName=SDA Pin=Chirp-2
+Removed Pin From Net: NetName=SCL Pin=Chirp-5
+Removed Pin From Net: NetName=SCL Pin=U90-4
+Removed Pin From Net: NetName=SDA Pin=U90-6
+Added Pin To Net: NetName=SDA Pin=R7-1
+Added Pin To Net: NetName=SCL Pin=R8-1
+Added Net: Name=3V0_SENSOR
+Added Pin To Net: NetName=SCL_SEN Pin=Chirp-5
+Added Pin To Net: NetName=SCL_SEN Pin=U90-4
+Added Net: Name=SCL_SEN
+Added Pin To Net: NetName=SDA_SEN Pin=Chirp-2
+Added Pin To Net: NetName=SDA_SEN Pin=U90-6
+Added Net: Name=SDA_SEN
+Added Pin To Net: NetName=VBAT/3V0 Pin=R7-2
+Added Pin To Net: NetName=VBAT/3V0 Pin=R8-2
+Added Net: Name=VBAT/3V0

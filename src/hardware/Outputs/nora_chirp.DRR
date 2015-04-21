@@ -1,0 +1,18 @@
+---------------------------------------------------------------------------
+NCDrill File Report For: nora_chirp.PcbDoc   26-03-2015  12:14:07
+---------------------------------------------------------------------------
+
+Layer Pair : Top Layer to Bottom Layer
+ASCII RoundHoles File : nora_chirp.TXT
+
+Tool         Hole Size           Hole Type     Hole Count Plated       Tool Travel
+---------------------------------------------------------------------------
+T1        15mil (0.381mm)          Round          160              22.71 Inch (576.82 mm)
+T2        35mil (0.889mm)          Round          6                0.50 Inch (12.70 mm)
+T3        59mil (1.4986mm)         Round          2                0.51 Inch (13.00 mm)
+T4        35mil (0.889mm)          Round          2         NPTH   0.12 Inch (3.00 mm)
+T5        125mil (3.175mm)         Round          1         NPTH   0.00 Inch (0.00 mm)
+---------------------------------------------------------------------------
+Totals                                            171              23.84 Inch (605.52 mm)
+
+Total Processing Time (hh:mm:ss) : 00:00:01

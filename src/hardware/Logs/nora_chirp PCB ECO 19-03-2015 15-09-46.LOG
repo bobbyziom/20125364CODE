@@ -1,0 +1,29 @@
+Removed Pin From Net: NetName=MAG_INT_L Pin=Q40-1
+Removed Pin From Net: NetName=TMP102_INT_L Pin=Q70-1
+Removed Pin From Net: NetName=MAG_INT_L Pin=U1-10
+Removed Pin From Net: NetName=TMP102_INT_L Pin=U1-12
+Added Component: Designator=D2(LED1616X07N-REDGREEN)
+Added Component: Designator=R15(RESC1005X04N)
+Added Component: Designator=R16(RESC1005X04N)
+Added Component: Designator=R17(RESC1005X04N)
+Added Pin To Net: NetName=GND Pin=D2-KG
+Added Pin To Net: NetName=GND Pin=D2-KR
+Added Pin To Net: NetName=GND Pin=R17-1
+Added Pin To Net: NetName=INDICATOR_GREEN Pin=R16-1
+Added Pin To Net: NetName=INDICATOR_GREEN Pin=U1-12
+Added Net: Name=INDICATOR_GREEN
+Added Pin To Net: NetName=INDICATOR_RED Pin=R15-1
+Added Pin To Net: NetName=INDICATOR_RED Pin=U1-10
+Added Net: Name=INDICATOR_RED
+Added Pin To Net: NetName=NetD2_AG Pin=D2-AG
+Added Pin To Net: NetName=NetD2_AG Pin=R16-2
+Added Net: Name=NetD2_AG
+Added Pin To Net: NetName=NetD2_AR Pin=D2-AR
+Added Pin To Net: NetName=NetD2_AR Pin=R15-2
+Added Pin To Net: NetName=NetD2_AR Pin=R17-2
+Added Net: Name=NetD2_AR
+Added Member To Class: ClassName=nora_chirp Member=Component D2 LED Red and Green
+Added Member To Class: ClassName=nora_chirp Member=Component R15 Resistor
+Added Member To Class: ClassName=nora_chirp Member=Component R16 Resistor
+Added Member To Class: ClassName=nora_chirp Member=Component R17 Resistor
+Added Room: Name=nora_chirp
