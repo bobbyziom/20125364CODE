@@ -28,7 +28,7 @@ class Sensor {
             imp.sleep(0.01);
         }
     }
-    
+	
 }
 
 class Tsl2561 extends Sensor {
@@ -90,6 +90,7 @@ class Tsl2561 extends Sensor {
             if (reg0 == null || reg1 == null) {
                 return callback(null);
             } else {
+                // convert(reg0, reg1)
                 return callback(convert(reg0, reg1));
             }
             
@@ -161,8 +162,8 @@ class Chirp25 extends Sensor {
     
     static REG_RST      = "\x06"; 
     static REG_MOIST    = "\x00";
-    static READ_STEP    = 0.25;
-    static READ_OFFSET  = 52.0;
+    static READ_STEP    = 0.234;
+    static READ_OFFSET  = -49.16;
     
     static name         = "chirp";
     
@@ -171,9 +172,13 @@ class Chirp25 extends Sensor {
         this.reset();
     }
     
-    function convert(reading) {
+    function toadc(reading) {
+        return (reading[0] << 8) | reading[1];
+    }
+    
+    function topct(reading) {
         local adc_val = (reading[0] << 8) | reading[1];
-        return (READ_STEP*adc_val-READ_OFFSET).tointeger();
+        return (READ_STEP*adc_val+READ_OFFSET).tointeger();
     }
     
     function reset() {
@@ -190,7 +195,7 @@ class Chirp25 extends Sensor {
             //imp.sleep(2);
         }
         
-        callback({ pct = this.convert(reading) });
+        callback({ pct = this.topct(reading), adc = this.toadc(reading) });
 
     }
     
@@ -203,15 +208,15 @@ class Battery extends Sensor {
 
     constructor(_pin) {
         base.constructor();
-        pin = _pin;
-        pin.configure(ANALOG_IN);
+		pin = _pin;
+		pin.configure(ANALOG_IN);
     }
 
     function read(callback = null) {
-        local r = pin.read() / 65535.0;
-        local v = hardware.voltage() * r;
-        local p = 100.0 * r;
-        callback({voltage = v});
+		local r = pin.read() / 65535.0;
+		local v = hardware.voltage() * r;
+		local p = 100.0 * r;
+		callback({voltage = v});
     }
 }
 
@@ -294,7 +299,7 @@ class Storage {
     }
     
     function set_interval_store(_interval) {
-        default_interval = _interval;
+        interval = _interval;
         if (("nv" in getroottable()) && ("interval" in ::nv)) {
             ::nv["interval"] <- _interval;
         } else {
@@ -303,11 +308,11 @@ class Storage {
     }
     
     function get_nv(key) {
-        if (("nv" in getroottable()) && (key in ::nv)) {
+    	if (("nv" in getroottable()) && (key in ::nv)) {
             return ::nv[key];
-        } else {
-            return null;   
-        }
+    	} else {
+    	    return null;   
+    	}
     }
 
     function append_nv(key, value) {
@@ -352,9 +357,9 @@ class Storage {
 temphum     <- Si7021(hardware.i2c89);
 light       <- Tsl2561(hardware.i2c89);
 moisture    <- Chirp25(hardware.i2c89);
-battery     <- Battery(hardware.pin7);
+battery     <- Battery(hardware.pin2);
 feedback    <- FeedbackLed(hardware.pinC, hardware.pinE);
-gate        <- PowerGate(hardware.pin2, hardware.pin5);
+gate        <- PowerGate(hardware.pin6, hardware.pin5);
 store       <- Storage();
 
 // value table instatiation
@@ -366,7 +371,7 @@ function connection_handler(reason) {
     if(reason == SERVER_CONNECTED) {
         
         // send data to the server
-        agent.send("send", {
+        agent.send("keen", {
             humidity = ::nv["hum"],
             temp = ::nv["temp"],
             lux = ::nv["lux"],
@@ -376,8 +381,18 @@ function connection_handler(reason) {
             collect_cycle = ::nv["cyc"]
         });
         
+        /*
         foreach(v in nv.cyc) {
             server.log(v);
+        }
+        
+        foreach(b in nv.bat) {
+            server.log(b);
+        }
+        */
+        
+        foreach(b in nv.mois) {
+            server.log(b);
         }
         
         // clear readings nv table
@@ -426,6 +441,14 @@ function run() {
                 // log collection time
                 store.append_nv("cyc", (collect_stop - duty_start));
                 
+                /*
+                
+                
+                foreach(b in nv.hum) {
+                    server.log(b);
+                }
+                */
+                
                 // check if exeeding NV table max size
                 // if so: connect to wifi, send nv data and update device config if any changes
                 
@@ -448,6 +471,8 @@ function run() {
 
 function sleep() {
     // time feedback for optimization (visualizing how much time in each state)
+    
+    /*
     local total_duty =  hardware.millis() - duty_start;
     local total_collect = collect_stop - duty_start;
     local total_online =  hardware.millis() - collect_stop;
@@ -455,10 +480,14 @@ function sleep() {
     server.log("duty cycle total: " + total_duty);
     server.log("collected data for: " + total_collect);
     server.log("online for: " + total_online);
+    */
 
-    server.sleepfor(120);
+	//server.sleepfor(120);
+	
+	imp.wakeup(5, run);
 }
 
+// update handler
 agent.on("update", function(config) {
    
    store.set_collect_max(config.collect);
@@ -468,5 +497,5 @@ agent.on("update", function(config) {
     
 });
 
-// start of program
+// start the program
 run();
