@@ -17,11 +17,21 @@ device.on("keen", function(data) {
     
     //server.log(http.jsonencode(data));
     
-    /*
-    keen.sendEvent("data_test", data, function(resp) {
+    local data_index = data.lux.len()-1;
+    
+    tosend <- {
+        collect_cycle = data.collect_cycle[data_index],
+        humidity = data.humidity[data_index],
+        lux = data.lux[data_index],
+        temp = data.temp[data_index],
+        moisture = data.moisture[data_index],
+        battery = data.battery[data_index]
+    }
+    
+    keen.sendEvent("norachirp5", tosend, function(resp) {
         server.log(resp.statuscode + ": " + resp.body);
     });
-    */
+    
     
     
 });

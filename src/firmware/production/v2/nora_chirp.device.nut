@@ -28,7 +28,7 @@ class Sensor {
             imp.sleep(0.01);
         }
     }
-	
+    
 }
 
 class Tsl2561 extends Sensor {
@@ -162,8 +162,8 @@ class Chirp25 extends Sensor {
     
     static REG_RST      = "\x06"; 
     static REG_MOIST    = "\x00";
-    static READ_STEP    = 0.234;
-    static READ_OFFSET  = -49.16;
+    static READ_STEP    = 0.24;
+    static READ_OFFSET  = -50.0;
     
     static name         = "chirp";
     
@@ -208,15 +208,15 @@ class Battery extends Sensor {
 
     constructor(_pin) {
         base.constructor();
-		pin = _pin;
-		pin.configure(ANALOG_IN);
+        pin = _pin;
+        pin.configure(ANALOG_IN);
     }
 
     function read(callback = null) {
-		local r = pin.read() / 65535.0;
-		local v = hardware.voltage() * r;
-		local p = 100.0 * r;
-		callback({voltage = v});
+        local r = pin.read() / 65535.0;
+        local v = hardware.voltage() * r;
+        local p = 100.0 * r;
+        callback({voltage = v});
     }
 }
 
@@ -308,11 +308,11 @@ class Storage {
     }
     
     function get_nv(key) {
-    	if (("nv" in getroottable()) && (key in ::nv)) {
+        if (("nv" in getroottable()) && (key in ::nv)) {
             return ::nv[key];
-    	} else {
-    	    return null;   
-    	}
+        } else {
+            return null;   
+        }
     }
 
     function append_nv(key, value) {
@@ -389,11 +389,13 @@ function connection_handler(reason) {
         foreach(b in nv.bat) {
             server.log(b);
         }
-        */
+        
         
         foreach(b in nv.mois) {
             server.log(b);
         }
+        
+        */
         
         // clear readings nv table
         store.reset_nv();
@@ -482,9 +484,9 @@ function sleep() {
     server.log("online for: " + total_online);
     */
 
-	//server.sleepfor(120);
-	
-	imp.wakeup(5, run);
+    server.sleepfor(120);
+    
+    //imp.wakeup(5, run);
 }
 
 // update handler
