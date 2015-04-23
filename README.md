@@ -22,7 +22,8 @@ Go to the firmware section by clicking [here](https://github.com/bobbyziom/chirp
 ### Software
 
 Go to the software section by clicking [here](https://github.com/bobbyziom/chirp-nora/tree/master/src/software).
-Or just check out the current demopage [here](http://chirp-nora.herokuapp.com/#!/).
+
+Or just check out the current demopage [http://chirp-nora.herokuapp.com/#!/](http://chirp-nora.herokuapp.com/#!/).
 
 ### Copyright 
 
