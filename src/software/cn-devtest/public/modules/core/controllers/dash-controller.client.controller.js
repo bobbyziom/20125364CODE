@@ -6,7 +6,9 @@ angular.module('core').controller('DashControllerController', ['$scope', 'tbkKee
 
 		$scope.eventCollections = [ 
 			{ name: 'Test CN #5', collection: 'norachirp5' }, 
-			{ name: 'Test CN #1', collection: 'norachirp1' }
+			{ name: 'Test CN #1', collection: 'norachirp1' },
+			{ name: 'Test breakout', collection: 'norabreakout' }
+
 		];
 
 		$scope.eventCollection = $scope.eventCollections[0]; 

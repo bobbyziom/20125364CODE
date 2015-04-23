@@ -3,7 +3,7 @@
   <p>
   <hr>
 
-  <select class="form-control" ng-model="eventCollection" ng-options="i.name for i in eventCollections"></select>
+  <select class="form-control" ng-model="eventCollection" ng-options="i.name for i in eventCollections" ng-change="request(interval)"></select>
 
   <hr>
 
