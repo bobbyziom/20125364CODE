@@ -10,6 +10,8 @@ config <- {
     interval = 125
 }
 
+settings <- { collection = "data" };
+
 // keen object
 keen <- KeenIO(KEEN_PROJECT_ID, KEEN_WRITE_API_KEY);
 
@@ -28,7 +30,9 @@ device.on("keen", function(data) {
         battery = data.battery[data_index]
     }
     
-    keen.sendEvent("norachirp5", tosend, function(resp) {
+    server.log(http.jsonencode(tosend));
+    
+    keen.sendEvent(collection, tosend, function(resp) {
         server.log(resp.statuscode + ": " + resp.body);
     });
     
@@ -54,10 +58,47 @@ device.on("update", function(data) {
     
 });
 
+function load_settings() {
+    
+    local setup = server.load();
+    
+    if (setup.len() != 0) {
+        settings <- setup;
+        server.log("settings loaded: collection = " + settings.collection);
+    } else {
+        server.log("No settings to load ...");
+        server.log("collection = " + settings.collection);
+    }
+    
+}
+
+function save_settings() {
+    
+    local err = server.save(settings);
+    
+    if (err == 0) {
+        server.log("Settings saved");
+    } else {
+        server.log("Settings not saved. Error: " + err.tostring());
+    }
+    
+}
+
 function request_handler(request, response) {
 
+  if ("col" in request.query) {
+      
+    // if it was, send the value of it to the device
+    settings.collection <- request.query["col"];
+    server.log("collection now: " + settings.collection);
+    save_settings();
+    
+  }
+  
   response.send(200, "OK");
   
 }
  
 http.onrequest(request_handler);
+
+load_settings();
