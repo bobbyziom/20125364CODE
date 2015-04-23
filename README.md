@@ -1,6 +1,7 @@
-[![Chirp-nora](https://github.com/bobbyziom/chirp-nora/blob/master/pics/IMG_0120.JPG)](http://bobbytech.dk/)
 
 ## ChirpNora
+
+[![Chirp-nora](https://github.com/bobbyziom/chirp-nora/blob/master/pics/IMG_0120.JPG)](http://bobbytech.dk/)
 
 ChirpNora is a combined Bachelor (Medialogy) and Master (Sustainable Design) project from Aalborg University Copenhagen, 2015.
 
