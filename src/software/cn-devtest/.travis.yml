@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+- '0.10'
+env:
+- NODE_ENV=travis
+services:
+- mongodb
+before_script: cd src/software/cn-devtest/
+deploy:
+  provider: heroku
+  api_key:
+    secure: cfJT2CIX3WGsWRCi/KywUrmJzTnAZSaX4cNp/8UrDSTC8r0FXKrQ9UVkrDmSpSVmfRcdfO7XG1Ezbd8m2XDpir2DctGSrvhkOyb/UkYAeCAaANczSIcrd8KxyYAzSH6qiqZk8FWY0LlLWs/6eK5uvYbwLJCpEtV70vyaSm9m/Sw=
+  app: chirp-nora
+  on:
+    repo: bobbyziom/chirp-nora
