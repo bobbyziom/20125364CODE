@@ -3,19 +3,19 @@
 
 Here you'll find firmware, hardware and software files.
 
-## Hardware
+### Hardware
 
 Go to the hardware section by clicking [here](https://github.com/bobbyziom/chirp-nora/tree/master/src/hardware).
 
-## Firmware
+### Firmware
 
 Go to the firmware section by clicking [here](https://github.com/bobbyziom/chirp-nora/tree/master/src/firmware).
 
-## Software
+### Software
 
 Go to the software section by clicking [here](https://github.com/bobbyziom/chirp-nora/tree/master/src/software).
 
-## Copyright 
+### Copyright 
 
 The MIT License (MIT)
 

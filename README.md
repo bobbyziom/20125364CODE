@@ -11,19 +11,19 @@ ChirpNora have its name from two reference designs:
 
 Which is combined into one super long battery life plant measuring unit for potential commercial use. In this repository you will find the hardware, firmware and a test software solution that we're working on. 
 
-## Hardware
+### Hardware
 
 Go to the hardware section by clicking [here](https://github.com/bobbyziom/chirp-nora/tree/master/src/hardware).
 
-## Firmware
+### Firmware
 
 Go to the firmware section by clicking [here](https://github.com/bobbyziom/chirp-nora/tree/master/src/firmware).
 
-## Software
+### Software
 
 Go to the software section by clicking [here](https://github.com/bobbyziom/chirp-nora/tree/master/src/software).
 
-## Copyright 
+### Copyright 
 
 The MIT License (MIT)
 
