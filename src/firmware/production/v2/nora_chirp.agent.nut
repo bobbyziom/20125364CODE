@@ -32,7 +32,7 @@ device.on("keen", function(data) {
     
     server.log(http.jsonencode(tosend));
     
-    keen.sendEvent(collection, tosend, function(resp) {
+    keen.sendEvent(settings.collection, tosend, function(resp) {
         server.log(resp.statuscode + ": " + resp.body);
     });
     
