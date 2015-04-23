@@ -11,7 +11,7 @@ ChirpNora have its name from two reference designs:
 
 Which is combined into one super long battery life plant measuring unit for potential commercial use. In this repository you will find the hardware, firmware and a test software solution that we're working on. 
 
-# Copyright 
+### Copyright 
 
 The MIT License (MIT)
 
