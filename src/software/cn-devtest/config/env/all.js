@@ -3,8 +3,8 @@
 module.exports = {
 	app: {
 		title: 'cn-devtest',
-		description: 'Developer test environment for nora-chirp',
-		keywords: 'Nora, Chirpt, Meanjs, Development'
+		description: 'Developer test environment for chrip-nora',
+		keywords: 'Nora, Chirp, Meanjs, Development'
 	},
 	port: process.env.PORT || 3000,
 	templateEngine: 'swig',
@@ -25,7 +25,9 @@ module.exports = {
 				'public/lib/angular-sanitize/angular-sanitize.js', 
 				'public/lib/angular-ui-router/release/angular-ui-router.js',
 				'public/lib/angular-ui-utils/ui-utils.js',
-				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js'
+				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
+				'public/lib/keen-js/dist/keen.js',
+				'public/lib/angular-keenio/dist/angular-keenio.js'
 			]
 		},
 		css: [

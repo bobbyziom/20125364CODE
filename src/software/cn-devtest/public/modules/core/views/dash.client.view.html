@@ -1,3 +1,28 @@
 <section data-ng-controller="DashControllerController">
-	This is the Dash view
+
+  <p>
+  <hr>
+
+  <select class="form-control" ng-model="eventCollection" ng-options="i.name for i in eventCollections"></select>
+
+  <hr>
+
+  <div class="chart-wrapper">
+
+      <div class="chart-stage">
+        <div id="qual"></div>
+      </div>
+
+  </div>
+
+
+  <div class="btn-group btn-group-justified" ng-click="request(interval)">
+    <label class="btn btn-default" ng-model="interval" btn-radio="1" uncheckable>1 day</label>
+    <label class="btn btn-default" ng-model="interval" btn-radio="2" uncheckable>3 days</label>
+    <label class="btn btn-default" ng-model="interval" btn-radio="3" uncheckable>1 week</label>
+    <label class="btn btn-default" ng-model="interval" btn-radio="4" uncheckable>2 weeks</label>
+    <label class="btn btn-default" ng-model="interval" btn-radio="5" uncheckable>1 month</label>
+    <label class="btn btn-default" ng-model="interval" btn-radio="6" uncheckable>3 months</label>
+  </div>
+
 </section>
