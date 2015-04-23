@@ -5,7 +5,7 @@ env:
 - NODE_ENV=travis
 services:
 - mongodb
-before_script: cd src/software/cn-devtest/
+script: cd src/software/cn-devtest/
 deploy:
   provider: heroku
   api_key:
