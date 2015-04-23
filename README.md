@@ -1,4 +1,12 @@
-# chrip-nora
+[![Chirp-nora](https://github.com/bobbyziom/chirp-nora/blob/master/src/software/cn-devtest/public/modules/core/img/brand/bobby-wobackground.png)](http://bobbytech.dk/)
 
-Combined Bachelors (MED) and Masters (DIST) project 2015.
-Aalborg University Copenhagen.
+## ChirpNora
+
+ChirpNora is a combined Bachelors (Medialogy) and Masters (Sustainable Design) project from Aalborg University Copenhagen, 2015.
+
+ChirpNora have it's name from two reference designs:
+- [![Nora Electric Imp](https://electricimp.com/docs/hardware/resources/reference-designs/nora/)](Electric Imp's nora sensor module)
+- [![Chirp](http://wemakethings.net/chirp/)](Chirp open-source moisture sensor)
+
+Which is combined into one super plant measuring unit.
+
