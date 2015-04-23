@@ -118,7 +118,6 @@ angular.module('core').controller('DashControllerController', ['$scope', 'tbkKee
 		                    { category: 'Moisture', result: moist[i].value },
 		                    { category: 'Temperature', result: temp[i].value },
 		                    { category: 'Battery', result: batt[i].value }
-		                     
 		                ]
 		            };
 		            if (i === humidity.length-1) { // chart the data
