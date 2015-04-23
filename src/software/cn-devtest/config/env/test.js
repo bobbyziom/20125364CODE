@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-	db: 'mongodb://localhost/cn-devtest-test',
+	db: process.env.MONGOLAB_URI,
 	port: 3001,
 	app: {
 		title: 'cn-devtest - Test Environment'
