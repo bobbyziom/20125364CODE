@@ -1,4 +1,4 @@
-[![Chirp-nora](https://github.com/bobbyziom/chirp-nora/blob/master/src/software/cn-devtest/public/modules/core/img/brand/bobby-wobackground.png)](http://bobbytech.dk/)
+[![Chirp-nora](https://github.com/bobbyziom/chirp-nora/blob/master/pics/IMG_0120.JPG)](http://bobbytech.dk/)
 
 ## ChirpNora
 
