@@ -13,7 +13,8 @@ var ApplicationConfiguration = (function() {
 		'ui.router', 
 		'ui.bootstrap', 
 		'ui.utils', 
-		'angular-keenio'
+		'angular-keenio',
+		'frapontillo.gage'
 	];
 
 	// Add a new vertical module

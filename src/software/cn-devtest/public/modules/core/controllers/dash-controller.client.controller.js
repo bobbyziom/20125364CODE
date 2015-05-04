@@ -1,17 +1,29 @@
 'use strict';
 
-angular.module('core').controller('DashControllerController', ['$scope', 'tbkKeen', 
-	function($scope, Keen) {
+angular.module('core').controller('DashControllerController', ['$scope', 'tbkKeen', '$http', 
+	function($scope, Keen, $http) {
 		// Controller Logic
 
 		$scope.eventCollections = [ 
-			{ name: 'Test CN #5', collection: 'norachirp5' }, 
-			{ name: 'Test CN #1', collection: 'norachirp1' },
-			{ name: 'Test breakout', collection: 'norabreakout' },
-			{ name: 'Spider', collection: 'spider' }
+			{ name: 'Test CN #5', collection: 'norachirp5', id: 'vgvtHnhr2hBo' }, 
+			{ name: 'Test CN #1', collection: 'norachirp1', id: '5Aii6fEu_ZFb' },
+			{ name: 'Test breakout', collection: 'norabreakout', id: 'ZwSkK-W-NO1l' },
+			{ name: 'Spider', collection: 'spider', id: 'bVqd_PZ_ycqm' }
 		];
 
 		$scope.eventCollection = $scope.eventCollections[0]; 
+
+		$scope.read = function() {
+			var req = {
+		        method: 'GET',
+		        url: 'https://agent.electricimp.com/' + $scope.eventCollection.id + '/read',
+		        headers: {'Content-Type': 'application/json'}
+		      };
+
+		    $http(req).success(function(data) {
+		    	$scope.readings = data;
+		    });
+		};
 
 		var keen = new Keen({
 		    projectId: '5506b201672e6c4a103511d7',
@@ -29,6 +41,8 @@ angular.module('core').controller('DashControllerController', ['$scope', 'tbkKee
 
 		$scope.request = function(interval) {
 
+			$scope.read();
+
 			console.log($scope.eventCollection);
 
 			$scope.interval = interval;
@@ -37,7 +51,7 @@ angular.module('core').controller('DashControllerController', ['$scope', 'tbkKee
 		    .el(document.getElementById('qual'))
 		    .chartType('areachart')
 		    .width('auto')
-		    .height(500)
+		    .height(400)
 		    .chartOptions({
 		      hAxis: {
 		        chartArea: {

@@ -1,11 +1,64 @@
-<section data-ng-controller="DashControllerController">
+<section data-ng-controller="DashControllerController" ng-init="read()">
 
-  <p>
   <hr>
 
-  <h1>HEJ!</h1>
+    <select class="form-control" ng-model="eventCollection" ng-options="i.name for i in eventCollections" ng-change="request(interval)"></select>
 
-  <select class="form-control" ng-model="eventCollection" ng-options="i.name for i in eventCollections" ng-change="request(interval)"></select>
+    <hr>
+  <div class="row">
+                <div class="col-md-3">
+
+                        <justgage 
+                            title-min-font-size="8px" 
+                            title-font-color="black"
+                            min="0" 
+                            max="100"
+                            hide-min-max="true"
+                            symbol="%"
+                            value="{{readings.data.humidity}}" title="Humidity"
+                        ></justgage>
+                </div>
+                <div class="col-md-3">       
+                        <justgage 
+                            title-min-font-size="8px" 
+                            title-font-color="black"
+                            min="-10" 
+                            max="40"
+                            hide-min-max="true"
+                            symbol="&deg;C"
+                            value="{{readings.data.temp}}" title="Temperature"
+                        ></justgage>
+                </div>
+                
+                <div class="col-md-3">
+
+                        <justgage 
+                            title-min-font-size="8px" 
+                            title-font-color="black"
+                            min="0" 
+                            max="70"
+                            hide-min-max="true"
+                            symbol="%"
+                            value="{{readings.data.moisture}}" title="Moisture"
+                        ></justgage>
+
+                </div>
+
+                <div class="col-md-3">
+                        <justgage 
+                            title-min-font-size="8px" 
+                            title-font-color="black"
+                            min="0" 
+                            max="100"
+                            hide-min-max="true"
+                            value="{{readings.data.lux}}" title="Light (Lux)"
+                        ></justgage>
+                        
+
+                </div>
+            </div>
+
+             
 
   <hr>
 
@@ -13,10 +66,10 @@
 
       <div class="chart-stage">
         <div id="qual"></div>
+
       </div>
 
   </div>
-
 
   <div class="btn-group btn-group-justified" ng-click="request(interval)">
     <label class="btn btn-default" ng-model="interval" btn-radio="1" uncheckable>1 day</label>
@@ -26,5 +79,7 @@
     <label class="btn btn-default" ng-model="interval" btn-radio="5" uncheckable>1 month</label>
     <label class="btn btn-default" ng-model="interval" btn-radio="6" uncheckable>3 months</label>
   </div>
+
+
 
 </section>
