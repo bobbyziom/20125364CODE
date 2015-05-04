@@ -17,7 +17,12 @@ module.exports = {
 				'public/lib/angular-sanitize/angular-sanitize.js', 
 				'public/lib/angular-ui-router/release/angular-ui-router.min.js',
 				'public/lib/angular-ui-utils/ui-utils.min.js',
-				'public/lib/angular-bootstrap/ui-bootstrap-tpls.min.js'
+				'public/lib/angular-bootstrap/ui-bootstrap-tpls.min.js',
+				'public/lib/keen-js/dist/keen.js',
+				'public/lib/angular-keenio/dist/angular-keenio.js',
+				'public/lib/angular-gage/dist/angular-gage.min.js',
+				'public/lib/raphael/raphael-min.js',
+				'public/lib/justgage-bower/justgage.js'
 			]
 		},
 		css: 'public/dist/application.min.css',
