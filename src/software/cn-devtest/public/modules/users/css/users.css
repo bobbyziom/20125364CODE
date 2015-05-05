@@ -3,6 +3,11 @@
 		position: fixed;
 	}
 }
+
+body {
+   background:#262626 !important;
+}
+
 .remove-account-container {
 	display: inline-block;
 	position: relative;

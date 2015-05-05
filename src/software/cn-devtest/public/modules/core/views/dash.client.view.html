@@ -1,15 +1,16 @@
 <section data-ng-controller="DashControllerController" ng-init="read()">
 
-  <hr>
-
+<p>
+    <div class="jumbotron">
     <select class="form-control" ng-model="eventCollection" ng-options="i.name for i in eventCollections" ng-change="request(interval)"></select>
+    </div>
 
-    <hr>
+<div class="jumbotron">
   <div class="row">
                 <div class="col-md-3">
 
                         <justgage 
-                            title-min-font-size="9px" 
+                            title-min-font-size="12px" 
                             title-font-color="black"
                             min="0" 
                             max="100"
@@ -20,7 +21,7 @@
                 </div>
                 <div class="col-md-3">       
                         <justgage 
-                            title-min-font-size="8px" 
+                            title-min-font-size="12px" 
                             title-font-color="black"
                             min="-10" 
                             max="40"
@@ -33,7 +34,7 @@
                 <div class="col-md-3">
 
                         <justgage 
-                            title-min-font-size="8px" 
+                            title-min-font-size="12px" 
                             title-font-color="black"
                             min="0" 
                             max="70"
@@ -46,7 +47,7 @@
 
                 <div class="col-md-3">
                         <justgage 
-                            title-min-font-size="8px" 
+                            title-min-font-size="12px" 
                             title-font-color="black"
                             min="0" 
                             max="100"
@@ -58,9 +59,9 @@
                 </div>
             </div>
 
-             
+ </div>
 
-  <hr>
+  <div class="jumbotron">
 
   <div class="chart-wrapper">
 
@@ -71,6 +72,8 @@
 
   </div>
 
+
+
   <div class="btn-group btn-group-justified" ng-click="request(interval)">
     <label class="btn btn-default" ng-model="interval" btn-radio="1" uncheckable>1 day</label>
     <label class="btn btn-default" ng-model="interval" btn-radio="2" uncheckable>3 days</label>
@@ -80,6 +83,7 @@
     <label class="btn btn-default" ng-model="interval" btn-radio="6" uncheckable>3 months</label>
   </div>
 
+</div>
 
 
 </section>
