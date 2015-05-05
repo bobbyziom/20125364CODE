@@ -11,7 +11,7 @@ config      <- {
 };
 
 // settings (keen collection name (default: "data"))
-settings    <- { collection = "data" };
+setup       <- { collection = "data" };
 
 // latest reading
 reading     <- {};
@@ -40,11 +40,11 @@ device.on("keen", function(data) {
     server.log(http.jsonencode(tosend));
     //server.log(settings.collection);
     
-    keen.sendEvent(settings.collection, tosend, function(resp) {
+    keen.sendEvent(setup.collection, tosend, function(resp) {
         //server.log(resp.statuscode + ": " + resp.body);
     });
     
-    
+    save_settings();
     
 });
 
@@ -68,19 +68,26 @@ device.on("update", function(data) {
 
 function load_settings() {
     
-    local setup = server.load();
+    local loaded = server.load();
     
-    if (setup.len() != 0) {
-        settings <- setup;
-        server.log("settings loaded: collection = " + settings.collection);
+    if (loaded.len() != 0) {
+        setup   <- loaded.setup;
+        reading <- loaded.reading;
+        server.log("settings loaded: collection = " + setup.collection);
     } else {
         server.log("No settings to load ...");
-        server.log("collection = " + settings.collection);
+        server.log("collection = " + setup.collection);
     }
     
 }
 
 function save_settings() {
+    
+    settings            <- {};
+    settings.reading    <- reading;
+    settings.setup      <- setup;
+    
+    server.log(http.jsonencode(settings));
     
     local err = server.save(settings);
     
@@ -95,14 +102,14 @@ function save_settings() {
 function request_handler(request, response) {
     
     response.header("Access-Control-Allow-Origin", "*");
-    //response.header("Access-Control-Allow-Headers","Authorization, Origin, X-Requested-With, Content-Type, Accept");
+    response.header("Access-Control-Allow-Headers","Authorization, Origin, X-Requested-With, Content-Type, Accept");
     response.header("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
 
   if ("col" in request.query) {
       
     // if it was, send the value of it to the device
-    settings.collection <- request.query["col"];
-    server.log("collection now: " + settings.collection);
+    setup.collection <- request.query["col"];
+    server.log("collection now: " + setup.collection);
     save_settings();
     
   }

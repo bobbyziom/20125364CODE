@@ -2,7 +2,24 @@
 
 <p>
     <div class="jumbotron">
-    <select class="form-control" ng-model="eventCollection" ng-options="i.name for i in eventCollections" ng-change="request(interval)"></select>
+        <div class="row">
+            <div class="col-md-4">
+                <p class="text-center">Device</p>
+                 <select class="form-control" ng-model="eventCollection" ng-options="i.name for i in eventCollections" ng-change="request(interval)"></select>
+
+            </div>  
+
+            <div class="col-md-4">
+                <p class="text-center">Retrieved</p>
+                <p class="text-center" style="color: #777;">{{lastRead | date:'MMM d, y HH:mm:ss'}}</p>
+            </div> 
+             
+            <div class="col-md-4">
+                <p class="text-center">Battery</p>
+                <p class="text-center" style="color: #777;">{{readings.data.battery}}%</p>
+            </div>
+
+        </div>
     </div>
 
     <div class="jumbotron">
@@ -51,8 +68,9 @@
                 ></just-gage>
 
             </div>
-        </div>
 
+        </div>
+        
     </div>
 
 

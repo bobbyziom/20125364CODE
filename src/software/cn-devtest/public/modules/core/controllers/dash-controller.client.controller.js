@@ -22,6 +22,7 @@ angular.module('core').controller('DashControllerController', ['$scope', 'tbkKee
 
 		    $http(req).success(function(data) {
 		    	$scope.readings = data;
+		    	$scope.lastRead = new Date(data.time * 1000);
 		    });
 		};
 
@@ -43,7 +44,7 @@ angular.module('core').controller('DashControllerController', ['$scope', 'tbkKee
 
 			$scope.read();
 
-			console.log($scope.eventCollection);
+			//console.log($scope.eventCollection);
 
 			$scope.interval = interval;
 

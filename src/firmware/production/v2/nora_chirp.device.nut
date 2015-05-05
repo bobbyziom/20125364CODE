@@ -213,14 +213,14 @@ class Battery extends Sensor {
     }
     
     function to_pct(reading) {
-        return 77.0*reading-146.0
+        return (77.0*reading-146.0).tointeger();
     }
 
     function read(callback = null) {
         local r = pin.read() / 65535.0;
         local v = hardware.voltage() * r;
         local p = 100.0 * r;
-        callback({voltage = v, pct = to_pct(v)});
+        callback({voltage = v, pct = to_pct(v) });
     }
 }
 
