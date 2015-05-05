@@ -5,95 +5,81 @@
     <select class="form-control" ng-model="eventCollection" ng-options="i.name for i in eventCollections" ng-change="request(interval)"></select>
     </div>
 
-<div class="jumbotron">
+    <div class="jumbotron">
 
-    <just-gage 
-        id="test1" 
-        class="someClass" 
-        min="0" max="100" 
-        value="readings.data.humidity" 
-        title="Test 1"
-    ></just-gage>
+        <div class="row">
+            <div class="col-md-3">
 
+                <just-gage id="moist"
+                    title="Moisture (%)"
+                    min="0"
+                    max="70"
+                    value="readings.data.moisture"
+                ></just-gage>
 
-  <!-- div class="row">
-                <div class="col-md-3">
+            </div>
 
-                        <justgage 
-                            title-min-font-size="12px" 
-                            title-font-color="black"
-                            min="0" 
-                            max="100"
-                            hide-min-max="true"
-                            symbol="%"
-                            value="{{readings.data.humidity}}" title="Humidity"
-                        ></justgage>
-                </div>
-                <div class="col-md-3">       
-                        <justgage 
-                            title-min-font-size="12px" 
-                            title-font-color="black"
-                            min="-10" 
-                            max="40"
-                            hide-min-max="true"
-                            symbol="&deg;C"
-                            value="{{readings.data.temp}}" title="Temperature"
-                        ></justgage>
-                </div>
-                
-                <div class="col-md-3">
+            <div class="col-md-3">
 
-                        <justgage 
-                            title-min-font-size="12px" 
-                            title-font-color="black"
-                            min="0" 
-                            max="70"
-                            hide-min-max="true"
-                            symbol="%"
-                            value="{{readings.data.moisture}}" title="Moisture"
-                        ></justgage>
+                <just-gage id="lux"
+                    title="Light (lux)"
+                    min="0"
+                    max="1000"
+                    value="readings.data.lux"
+                ></just-gage>
 
-                </div>
+            </div>
 
-                <div class="col-md-3">
-                        <justgage 
-                            title-min-font-size="12px" 
-                            title-font-color="black"
-                            min="0" 
-                            max="100"
-                            hide-min-max="true"
-                            value="{{readings.data.lux}}" title="Light (Lux)"
-                        ></justgage>
-                        
+            <div class="col-md-3">
 
-                </div>
-            </div -->
+                <just-gage id="temp"
+                    title="Temperature (&deg;C)"
+                    min="0"
+                    max="40"
+                    value="readings.data.temp"
+                ></just-gage>
 
- </div>
+            </div>
 
-  <div class="jumbotron">
+            <div class="col-md-3">
 
-  <div class="chart-wrapper">
+                <just-gage id="hum"
+                    title="Humidity (%)"
+                    min="0"
+                    max="100"
+                    value="readings.data.humidity"
+                ></just-gage>
 
-      <div class="chart-stage">
-        <div id="qual"></div>
+            </div>
+        </div>
 
-      </div>
-
-  </div>
+    </div>
 
 
 
-  <div class="btn-group btn-group-justified" ng-click="request(interval)">
-    <label class="btn btn-default" ng-model="interval" btn-radio="1" uncheckable>1 day</label>
-    <label class="btn btn-default" ng-model="interval" btn-radio="2" uncheckable>3 days</label>
-    <label class="btn btn-default" ng-model="interval" btn-radio="3" uncheckable>1 week</label>
-    <label class="btn btn-default" ng-model="interval" btn-radio="4" uncheckable>2 weeks</label>
-    <label class="btn btn-default" ng-model="interval" btn-radio="5" uncheckable>1 month</label>
-    <label class="btn btn-default" ng-model="interval" btn-radio="6" uncheckable>3 months</label>
-  </div>
+    <div class="jumbotron">
 
-</div>
+          <div class="chart-wrapper">
+
+              <div class="chart-stage">
+                <div id="qual"></div>
+
+              </div>
+
+          </div>
+
+
+
+          <div class="btn-group btn-group-justified" ng-click="request(interval)">
+            <label class="btn btn-default" ng-model="interval" btn-radio="1" uncheckable>1 day</label>
+            <label class="btn btn-default" ng-model="interval" btn-radio="2" uncheckable>3 days</label>
+            <label class="btn btn-default" ng-model="interval" btn-radio="3" uncheckable>1 week</label>
+            <label class="btn btn-default" ng-model="interval" btn-radio="4" uncheckable>2 weeks</label>
+            <label class="btn btn-default" ng-model="interval" btn-radio="5" uncheckable>1 month</label>
+            <label class="btn btn-default" ng-model="interval" btn-radio="6" uncheckable>3 months</label>
+          </div>
+
+    </div>
 
 
 </section>
