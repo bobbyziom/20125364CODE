@@ -1,5 +1,5 @@
 
-# ChirpNora [![](https://api.travis-ci.org/bobbyziom/chirp-nora.svg?branch=master)]
+# ChirpNora [!(https://api.travis-ci.org/bobbyziom/chirp-nora.svg?branch=master)]
 
 [![Chirp-nora](https://github.com/bobbyziom/chirp-nora/blob/master/pics/IMG_0166.JPG)](http://spiio.dk/)
 
