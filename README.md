@@ -23,13 +23,13 @@ Go to the firmware section by clicking [here](https://github.com/bobbyziom/chirp
 
 Go to the software section by clicking [here](https://github.com/bobbyziom/chirp-nora/tree/master/src/software).
 
-Or just check out the current demopage [http://chirp-nora.herokuapp.com/#!/](http://chirp-nora.herokuapp.com/#!/).
+Or just check out the current demopage [http://cn.spiio.com](http://cn.spiio.com).
 
 ### Copyright 
 
 The MIT License (MIT)
 
-Copyright (c) 2015 [Bobby Technologies](http://bobbytech.dk/)
+Copyright (c) 2015 [spiio](http://spiio.dk/)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
