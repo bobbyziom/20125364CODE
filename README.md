@@ -23,7 +23,7 @@ Go to the firmware section by clicking [here](https://github.com/bobbyziom/chirp
 
 Go to the software section by clicking [here](https://github.com/bobbyziom/chirp-nora/tree/master/src/software).
 
-Or just check out the current demopage [http://cn.spiio.com](http://cn.spiio.com).
+Or just check out the current demopage [cn.spiio.com](http://cn.spiio.com).
 
 ### Copyright 
 
