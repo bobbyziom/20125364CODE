@@ -28,9 +28,9 @@ module.exports = {
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
 				'public/lib/keen-js/dist/keen.js',
 				'public/lib/angular-keenio/dist/angular-keenio.js',
-				'public/lib/angular-gage/dist/angular-gage.min.js',
 				'public/lib/raphael/raphael-min.js',
-				'public/lib/justgage-bower/justgage.js'
+				'public/lib/justgage-toorshia/justgage.js',
+				'public/lib/angular-justgage/ng-justgage.js'
 			]
 		},
 		css: [
