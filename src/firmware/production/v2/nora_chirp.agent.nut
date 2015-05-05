@@ -5,12 +5,16 @@ const KEEN_PROJECT_ID = "";
 const KEEN_WRITE_API_KEY = "";
 
 // device config
-config <- {
+config      <- {
     collect = 10,
     interval = 125
-}
+};
 
-settings <- { collection = "data" };
+// settings (keen collection name (default: "data"))
+settings    <- { collection = "data" };
+
+// latest reading
+reading     <- {};
 
 // keen object
 keen <- KeenIO(KEEN_PROJECT_ID, KEEN_WRITE_API_KEY);
@@ -30,10 +34,14 @@ device.on("keen", function(data) {
         battery = data.battery[data_index]
     }
     
+    reading.data <- tosend;
+    reading.time <- time();
+    
     server.log(http.jsonencode(tosend));
+    //server.log(settings.collection);
     
     keen.sendEvent(settings.collection, tosend, function(resp) {
-        server.log(resp.statuscode + ": " + resp.body);
+        //server.log(resp.statuscode + ": " + resp.body);
     });
     
     
@@ -85,6 +93,10 @@ function save_settings() {
 }
 
 function request_handler(request, response) {
+    
+    response.header("Access-Control-Allow-Origin", "*");
+    //response.header("Access-Control-Allow-Headers","Authorization, Origin, X-Requested-With, Content-Type, Accept");
+    response.header("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
 
   if ("col" in request.query) {
       
@@ -93,6 +105,12 @@ function request_handler(request, response) {
     server.log("collection now: " + settings.collection);
     save_settings();
     
+  }
+  
+  if(request.path == "/read") {
+      
+      response.send(200, http.jsonencode(reading));
+      return;
   }
   
   response.send(200, "OK");

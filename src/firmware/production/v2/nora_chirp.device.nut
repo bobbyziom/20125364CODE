@@ -211,12 +211,16 @@ class Battery extends Sensor {
         pin = _pin;
         pin.configure(ANALOG_IN);
     }
+    
+    function to_pct(reading) {
+        return 77.0*reading-146.0
+    }
 
     function read(callback = null) {
         local r = pin.read() / 65535.0;
         local v = hardware.voltage() * r;
         local p = 100.0 * r;
-        callback({voltage = v});
+        callback({voltage = v, pct = to_pct(v)});
     }
 }
 
@@ -432,7 +436,7 @@ function run() {
                 store.append_nv("lux", lux);
                 store.append_nv("mois", moist.pct);
                 store.append_nv("time", time());
-                store.append_nv("bat", bat.voltage);
+                store.append_nv("bat", bat.pct);
                 
                 feedback.success();
                 gate.close();
@@ -444,9 +448,7 @@ function run() {
                 store.append_nv("cyc", (collect_stop - duty_start));
                 
                 /*
-                
-                
-                foreach(b in nv.hum) {
+                foreach(b in nv.lux) {
                     server.log(b);
                 }
                 */
@@ -462,7 +464,7 @@ function run() {
                 
                 // debug:
                 //agent.send("keen", reading);
-                //imp.wakeup(10, read_sensors);
+                //imp.wakeup(10, run);
                 
             });
         });
