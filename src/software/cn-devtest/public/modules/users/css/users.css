@@ -12,22 +12,22 @@ body {
 }
 
 /* Wrapper for page content to push down footer */
-#wrap {
+.wrap {
     min-height: 100%;
-    height: auto!important;
+    height: auto !important;
     height: 100%;
     /* Negative indent footer by it's height */
     margin: 10 auto -30px;
 }
 
 /* Set the fixed height of the footer here */
-#push,
-#footer {
+.push,
+.footer {
     height: 30px;
 }
 
-#footer {
-    background-color: #f5f5f5;
+.footer {
+    background-color: #262626;
 }
 
 .remove-account-container {
