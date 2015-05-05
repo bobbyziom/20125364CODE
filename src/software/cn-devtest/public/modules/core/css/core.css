@@ -1,19 +1,4 @@
-.navbar-header {
-    float: left;
-    padding: 15px;
-    text-align: center;
-    width: 100%;
-}
 
-.navbar-brand {
-	color: #aaaaaa !important;
-	float:none;
-}
-
-.navbar-brand:hover {
-	color: #fff !important;
-	float:none;
-}
 
 .content {
 	margin-top: 70px;
