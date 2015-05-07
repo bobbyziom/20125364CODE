@@ -1,24 +1,70 @@
+// libraries
 #require "KeenIO.class.nut:1.0.0"
+#require "rocky.class.nut:1.1.1"
+
+// classes
+class MailGun {
+    
+    apikey  = null;
+    domain  = null;
+    from    = "imp@no-reply.com";
+    
+    constructor(_apiKey, _domain, _from="imp@no-reply.com") {
+        apikey = _apiKey;
+        domain = _domain;
+        from = _from;
+    }   
+    
+    function send(_to, _subject, _message) {
+        local request = http.post("https://api:" + apikey + "@api.mailgun.net/v2/" + domain + "/messages", {"Content-Type": "application/x-www-form-urlencoded"}, "from=" + from + "&to=" + _to + "&subject=" + _subject + "&text=" + _message);
+        local response = request.sendsync();
+        return response.body;
+    }
+    
+    function multisend(_contacts, _subject, _message) {
+        foreach(contact in _contacts) {
+            this.send(contact, _subject, _message);
+        }
+    }
+
+}
 
 // keen tokens
-const KEEN_PROJECT_ID = "";
-const KEEN_WRITE_API_KEY = "";
+const KEEN_PROJECT_ID       = "";
+const KEEN_WRITE_API_KEY    = "";
 
-// device config
-config      <- {
-    collect = 10,
-    interval = 125
+// mailgun credentials
+const MG_API_KEY            = "";
+const MG_DOMAIN             = "";
+const MG_EMAIL              = "";
+
+// 3rd party object setup
+keen        <- KeenIO(KEEN_PROJECT_ID, KEEN_WRITE_API_KEY);
+mail        <- MailGun(MG_API_KEY, MG_DOMAIN, MG_EMAIL);
+api         <- Rocky({ accessControl = true, allowUnsecure = false, strictRouting = false, timeout = 10 });
+
+// device config and credentials (keen collection name (default: "data"))
+SETUP       <- { 
+    device = {
+        name = "Test CN #1",
+        collection = "data"
+    }
+    config = {
+        collect = 10,
+        interval = 125
+    },
+    reading = {},
+    notification = {
+        contacts = [ "contact@spiio.com" ],
+        entity = {
+            battery = { value = 10, sent = false },
+            moisture = { value = 35, sent = false }
+        },
+        interval = 43200
+    }
 };
 
-// settings (keen collection name (default: "data"))
-setup       <- { collection = "data" };
-
-// latest reading
-reading     <- {};
-
-// keen object
-keen <- KeenIO(KEEN_PROJECT_ID, KEEN_WRITE_API_KEY);
-
+// device handlers
 device.on("keen", function(data) {
     
     //server.log(http.jsonencode(data));
@@ -34,13 +80,34 @@ device.on("keen", function(data) {
         battery = data.battery[data_index]
     }
     
-    reading.data <- tosend;
-    reading.time <- time();
+    server.log("BATTERY: " + tosend.battery + "\t" + "TRIGGER VALUE: " + SETUP.notification.entity.battery.value);
+    
+    if(tosend.battery <= SETUP.notification.entity.battery.value) {
+        if(!SETUP.notification.entity.battery.sent) {
+            mail.multisend(SETUP.notification.contacts, "BATTERY LOW", "Battery is low (" + tosend.battery + "%) on " + SETUP.device.name + "! \n Best, spiio");
+            SETUP.notification.entity.battery.sent = true;
+            imp.wakeup(SETUP.notification.interval, function() {
+                SETUP.notification.entity.battery.send = false;
+            });
+        }
+    } 
+    
+    if(tosend.moisture <= SETUP.notification.entity.moisture.value) {
+        if(!SETUP.notification.entity.moisture.sent) {
+            mail.multisend(SETUP.notification.contacts, "MOISTURE LOW", "Moisture level is low (" + tosend.moisture + "%) on " + SETUP.device.name + "! \n Best, spiio"); 
+            SETUP.notification.entity.moisture.sent = true;
+            imp.wakeup(SETUP.notification.interval, function() {
+                SETUP.notification.entity.moisture.send = false;
+            });
+        }
+    }
+    
+    SETUP.reading.data <- tosend;
+    SETUP.reading.time <- time();
     
     server.log(http.jsonencode(tosend));
-    //server.log(settings.collection);
     
-    keen.sendEvent(setup.collection, tosend, function(resp) {
+    keen.sendEvent(SETUP.device.collection, tosend, function(resp) {
         //server.log(resp.statuscode + ": " + resp.body);
     });
     
@@ -48,48 +115,45 @@ device.on("keen", function(data) {
     
 });
 
-device.on("print", function(data) {
-    
-    server.log(http.jsonencode(data));
-    
-});
-
 device.on("update", function(data) {
     
     // only send new config back if different from current (save wifi time)
-    if(data.collect != config.collect || data.interval != config.interval) {
+    if(data.collect != SETUP.config.collect || data.interval != SETUP.config.interval) {
         device.send("update", { 
-            collect = config.collect,
-            interval = config.interval
+            collect = SETUP.config.collect,
+            interval = SETUP.config.interval
         });
     }
     
 });
 
+// methods
 function load_settings() {
     
     local loaded = server.load();
     
     if (loaded.len() != 0) {
-        setup   <- loaded.setup;
-        reading <- loaded.reading;
-        server.log("settings loaded: collection = " + setup.collection);
+        SETUP <- loaded;
+        foreach(sensor in SETUP.notification.entity) {
+            if(sensor.sent) {
+                imp.wakeup(1, function() { 
+                    sensor.sent = false;
+                });
+            }
+        }
+        server.log("settings loaded: " + http.jsonencode(SETUP));
     } else {
         server.log("No settings to load ...");
-        server.log("collection = " + setup.collection);
+        server.log("collection = " + SETUP.device.collection);
     }
     
 }
 
 function save_settings() {
     
-    settings            <- {};
-    settings.reading    <- reading;
-    settings.setup      <- setup;
+    server.log(http.jsonencode(SETUP));
     
-    server.log(http.jsonencode(settings));
-    
-    local err = server.save(settings);
+    local err = server.save(SETUP);
     
     if (err == 0) {
         server.log("Settings saved");
@@ -99,31 +163,52 @@ function save_settings() {
     
 }
 
-function request_handler(request, response) {
-    
-    response.header("Access-Control-Allow-Origin", "*");
-    response.header("Access-Control-Allow-Headers","Authorization, Origin, X-Requested-With, Content-Type, Accept");
-    response.header("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
+// api
+api.get("/read", function(context) {
+    context.send(200, SETUP.reading);
+});
 
-  if ("col" in request.query) {
-      
-    // if it was, send the value of it to the device
-    setup.collection <- request.query["col"];
-    server.log("collection now: " + setup.collection);
+api.get("/mail/([^/]*)", function(context) {
+    mail.multisend(SETUP.notification.contacts, "TESTING", context.path[1]);
+    context.send(200, "Mail sent!") 
+});
+
+api.get("/collection/([^/]*)", function(context) {
+    SETUP.device.collection <- context.path[1];
     save_settings();
-    
-  }
-  
-  if(request.path == "/read") {
-      
-      response.send(200, http.jsonencode(reading));
-      return;
-  }
-  
-  response.send(200, "OK");
-  
-}
- 
-http.onrequest(request_handler);
+    context.send(200, SETUP.device.collection)
+});
 
+api.get("/name/([^/]*)", function(context) {
+    SETUP.device.name <- context.path[1];
+    context.send(200, SETUP.device.name);
+});
+
+api.get("/notification/([^/]*)", function(context) {
+    if(context.path[1] != "reset") {
+        SETUP.notification.contacts.push(context.path[1]);
+        save_settings();
+        context.send(200, SETUP.notification);
+    } else {
+        foreach(note in SETUP.notification.entity) {
+            note.sent = false;
+        }
+        context.send(200, SETUP.notification.entity);
+    }
+});
+
+api.get("/notification/value/([^/]*)/([^/]*)", function(context) {
+    local sensor = context.path[2];
+    local value = context.path[3].tointeger();
+
+    if(sensor in SETUP.notification.entity) {
+        SETUP.notification.entity[sensor].value <- value;
+        save_settings();
+        context.send(200, SETUP.notification.entity);
+    } else {
+        context.send(400, "No such sensor");
+    }
+});
+
+// start up
 load_settings();

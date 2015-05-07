@@ -1,29 +1,24 @@
 'use strict';
 
-angular.module('core').controller('DashControllerController', ['$scope', 'tbkKeen', '$http', 
-	function($scope, Keen, $http) {
-		// Controller Logic
+angular.module('core').controller('DashControllerController', ['$scope', 'tbkKeen', '$http', 'Imp',
+	function($scope, Keen, $http, Imp) {
 
 		$scope.eventCollections = [ 
 			{ name: 'Test CN #5', collection: 'norachirp5', id: 'vgvtHnhr2hBo' }, 
 			{ name: 'Test CN #1', collection: 'norachirp1', id: '5Aii6fEu_ZFb' },
-			{ name: 'Test breakout', collection: 'norabreakout', id: 'ZwSkK-W-NO1l' },
+			{ name: 'Test breakout @ spiio', collection: 'norabreakout', id: 'ZwSkK-W-NO1l' },
 			{ name: 'Spider', collection: 'spider', id: 'bVqd_PZ_ycqm' }
 		];
 
-		$scope.eventCollection = $scope.eventCollections[0]; 
+		$scope.eventCollection = $scope.eventCollections[1]; 
 
 		$scope.read = function() {
-			var req = {
-		        method: 'GET',
-		        url: 'https://agent.electricimp.com/' + $scope.eventCollection.id + '/read',
-		        headers: {'Content-Type': 'application/json'}
-		      };
 
-		    $http(req).success(function(data) {
-		    	$scope.readings = data;
+			Imp.getReading($scope.eventCollection.id, function(data) {
+				$scope.readings = data;
 		    	$scope.lastRead = new Date(data.time * 1000);
-		    });
+			});
+
 		};
 
 		var keen = new Keen({
@@ -68,13 +63,15 @@ angular.module('core').controller('DashControllerController', ['$scope', 'tbkKee
 
 		    chart.prepare();
 
-		    var _interval;
+		    var _interval = 'hourly';
 
+		    /*
 		    if($scope.interval > 2) {
 		      _interval = 'hourly';
 		    } else {
 		      _interval = 'minutely';
 		    }
+		    */
 
 			var humidity = new Keen.Query('average', {
 		      eventCollection: $scope.eventCollection.collection,
