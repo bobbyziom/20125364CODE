@@ -1,4 +1,4 @@
-[![BobbyTech Logo](https://github.com/bobbyziom/chirp-nora/blob/master/src/software/cn-devtest/public/modules/core/img/brand/bobby-wobackground.png)](http://bobbytech.dk/)
+[![BobbyTech Logo](https://github.com/bobbyziom/chirp-nora/blob/master/src/software/cn-devtest/public/modules/core/img/brand/logo_300x174.png)](http://bobbytech.dk/)
 
 ## License
 (The MIT License)
