@@ -1,4 +1,4 @@
-<section data-ng-controller="DashControllerController" ng-init="read()">
+<section data-ng-controller="DashControllerController" ng-init="find()">
 
 <p>
     <div class="jumbotron">
@@ -7,8 +7,7 @@
                 <p class="text-center">Device</p>
                  <select class="form-control" ng-model="eventCollection" ng-options="i.name for i in eventCollections" ng-change="request(interval)"></select>
 
-            </div>  
-
+            </div>
             <div class="col-md-4">
                 <p class="text-center">Retrieved</p>
                 <p class="text-center" style="color: #777;">{{lastRead | date:'MMM d, y HH:mm:ss'}}</p>

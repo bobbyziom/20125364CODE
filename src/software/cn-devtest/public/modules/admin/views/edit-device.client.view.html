@@ -1,0 +1,41 @@
+<section data-ng-controller="AdminController" data-ng-init="findOne()">
+	<div class="jumbotron">
+
+		<!-- Device management -->
+
+		<p class="text-center">Editing {{device.name}}</p>
+
+		<div class="row">
+			<table class="table">
+				<thead>
+				  	<tr>
+					  	<th>Name</th>
+					  	<th>Keen Collection</th>
+					  	<th>Id</th>
+				  	</tr>
+				</thead>
+			    <tbody>
+				  	<tr>
+				  		<td><input class="form-control" ng-model="device.name"></td>
+				  		<td><input class="form-control" ng-model="device.col"></td>
+				  		<td><input class="form-control" ng-model="device.id"></td>
+				  	</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<p>
+
+		<div class="row">
+			<div class="text-center">
+					<button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+					<button class="btn btn-primary" ng-click="save(device._id)">Save</button>
+			</div>
+			<div class="text-right">
+
+				<button class="btn btn-danger" ng-click="remove(device._id)">Delete Device</button>
+			</div>
+		</div>
+
+	</div>
+</section>
