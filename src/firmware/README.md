@@ -18,8 +18,10 @@ https://agent.electricimp.com/<agent-id>
 
 #### Get latest reading
 
+```
 endpoint path: /read
 method: GET
+```
 
 return example:
 
