@@ -9,7 +9,7 @@ Version 1 of the firmware is built on a test environment on a breadboard and a i
 
 ### v2
 
-Version 2 is the current built and is maintained until the next hardware iteration of the project. For more information about features and current functionality go to the [firmware v2 section](https://github.com/bobbyziom/chirp-nora/tree/master/src/firmware/production/v2).
+Version 2 is the current built and is maintained until the next hardware iteration of the project. 
 
 ### Device API
 
