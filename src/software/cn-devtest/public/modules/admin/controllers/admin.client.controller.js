@@ -2,8 +2,8 @@
 
 angular.module('admin').controller('AdminController', ['$scope', '$stateParams', '$location', 'Device', 'Keen', 
 	function($scope, $stateParams, $location, Device, Keen) {
-		// Controller Logic
-		// ...
+
+		/* Controller methods */
 
 		var refresh = function() {
 			$scope.name = '';
@@ -17,7 +17,7 @@ angular.module('admin').controller('AdminController', ['$scope', '$stateParams',
 			});
 		};
 
-		refresh();
+		/* $scope methods */
 
 		$scope.addContact = function() {
 			Device.create({
@@ -29,8 +29,8 @@ angular.module('admin').controller('AdminController', ['$scope', '$stateParams',
 			});
 		};	
 
-		$scope.remove = function(id) {
-			Device.delete(id, function(data) {
+		$scope.remove = function() {
+			Device.delete($scope.device._id, function(data) {
 				$location.path('admin');
 				refresh();
 			});
@@ -42,12 +42,13 @@ angular.module('admin').controller('AdminController', ['$scope', '$stateParams',
 			});
 		};
 
-		$scope.save = function(id) {
-			Device.edit(id, {
+		$scope.save = function() {
+			Device.edit($scope.device._id, {
 				name: $scope.device.name,
 				col: $scope.device.col,
 				id: $scope.device.id
 			}, function(data) {
+				console.log(data);
 				$location.path('admin');
 			});
 		};
@@ -64,6 +65,10 @@ angular.module('admin').controller('AdminController', ['$scope', '$stateParams',
 				$location.path('admin');
 			});
 		};
+
+		/* program */
+
+		refresh();
 
 	}
 ]);

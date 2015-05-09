@@ -13,7 +13,6 @@ var mongoose = require('mongoose'),
  */
 exports.create = function(req, res) {
 	var device = new Device(req.body);
-
 	device.save(function(err) {
 		if (err) {
 			return res.status(400).send({
@@ -44,24 +43,21 @@ exports.read = function(req, res) {
  * Update a Device
  */
 exports.update = function(req, res) {
-
-	Device.findOneAndUpdate(req.params.id, req.body, function(err, docs) {
+	Device.update({ _id: req.params.id }, req.body, function(err, doc) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.json(docs);
+			res.json(doc);
 		}
 	});
-
 };
 
 /**
  * Delete an Device
  */
 exports.delete = function(req, res, id) {
-
 	Device.findByIdAndRemove(req.params.id, function(err, docs) {
 		if (err) {
 			return res.status(400).send({
@@ -71,14 +67,12 @@ exports.delete = function(req, res, id) {
 			res.json(docs);
 		}
 	});
-
 };
 
 /**
  * List of Devices
  */
 exports.list = function(req, res) {
-
 	Device.find(function(err, docs) {
 		if (err) {
 			return res.status(400).send({
@@ -88,6 +82,4 @@ exports.list = function(req, res) {
 			res.json(docs);
 		}
 	});
-
-
 };

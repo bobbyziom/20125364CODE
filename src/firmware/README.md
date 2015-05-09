@@ -11,26 +11,53 @@ Version 1 of the firmware is built on a test environment on a breadboard and a i
 
 Version 2 is the current built and is maintained until the next hardware iteration of the project. For more information about features and current functionality go to the [firmware v2 section](https://github.com/bobbyziom/chirp-nora/tree/master/src/firmware/production/v2).
 
-### Copyright 
+### Device API
 
-The MIT License (MIT)
+URL
+https://agent.electricimp.com/<agent-id>
 
-Copyright (c) 2015 [Bobby Technologies](http://bobbytech.dk/)
+#### Get latest reading
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+endpoint path: /read
+method: GET
 
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
+return example:
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
+```json
+{
+time: 1431174000,
+data: {
+humidity: 38.7,
+temp: 27,
+moisture: 136,
+collect_cycle: 622,
+lux: 159.17,
+battery: 96
+}
+```
+
+#### Setup keen collection
+
+endpoint path: /setup/collection/<collection-name>
+method: POST
+
+#### Set device name
+
+endpoint path: /setup/collection/<device-name>
+method: POST
+
+#### Append email to notification subscriptions
+
+endpoint path: /setup/notification/email/<email>
+method: POST
+
+#### Set battery notification trigger value
+
+endpoint path: /setup/notification/battery/<value>
+method: POST
+
+#### Set moisture notifcation trigger value
+
+endpoint path: /setup/notification/moisture/<value>
+method: POST
+
