@@ -12,6 +12,7 @@ var mongoose = require('mongoose'),
  * Create a Device
  */
 exports.create = function(req, res) {
+	console.log(req.body);
 	var device = new Device(req.body);
 	device.save(function(err) {
 		if (err) {

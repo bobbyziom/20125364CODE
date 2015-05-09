@@ -10,22 +10,41 @@ var mongoose = require('mongoose'),
  * Device Schema
  */
 var DeviceSchema = new Schema({
-	// Device model fields   
-	// ...
 
-	name: {
-		type: String,
-		default: ''
-	},
-	col: {
-		type: String,
-		default: ''
-	},
 	id: {
 		type: String,
 		default: ''
-	}
-
+	},
+	device: {
+		name: String,
+		col: String
+	},
+	config: {
+		collect: Number,
+		interval: Number
+	},
+	reading: {
+		collect_cycle: Number,
+        humidity: Number,
+        lux: Number,
+        temp: Number,
+        moisture: Number,
+        battery: Number
+	},
+	notification: {
+        contacts: [ String ],
+        entity: {
+            battery: { 
+            	value: Number,
+            	sent: Boolean 
+            },
+            moisture: { 
+            	value: Number, 
+            	sent: Boolean 
+            }
+        },
+        interval: Number
+    }
 
 });
 

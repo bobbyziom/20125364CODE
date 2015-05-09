@@ -1,9 +1,9 @@
-<section data-ng-controller="AdminController" data-ng-init="findOne()">
+<section data-ng-controller="EditDeviceController" data-ng-init="findOne()">
 	<div class="jumbotron">
 
 		<!-- Device management -->
 
-		<p class="text-center">Editing {{device.name}}</p>
+		<p class="text-center">Device</p>
 
 		<div class="row">
 			<table class="table">
@@ -16,11 +16,58 @@
 				</thead>
 			    <tbody>
 				  	<tr>
-				  		<td><input class="form-control" ng-model="device.name"></td>
-				  		<td><input class="form-control" ng-model="device.col"></td>
+				  		<td><input class="form-control" ng-model="device.device.name"></td>
+				  		<td><input class="form-control" ng-model="device.device.col"></td>
 				  		<td><input class="form-control" ng-model="device.id"></td>
 				  	</tr>
 				</tbody>
+			</table>
+		</div>
+
+		<!-- Trigger setup -->
+
+		<p class="text-center">Trigger Values</p>
+
+		<div class="row">
+			<table class="table">
+				<thead>
+				  	<tr>
+					  	<th>Battery</th>
+					  	<th>Moisture</th>
+				  	</tr>
+				</thead>
+			    <tbody>
+				  	<tr>
+				  		<td><input type="number" class="form-control" ng-model="device.notification.entity.battery.value"></td>
+				  		<td><input type="number" class="form-control" ng-model="device.notification.entity.moisture.value"></td>
+				  	</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<!-- Subscriptions -->
+
+		<p class="text-center">Subscriptions</p>
+
+		<div class="row">
+			<table class="table">
+			  <thead>
+			  	<tr>
+				  	<th>Email</th>
+				  	<th>Action</th>
+			  	</tr>
+			  </thead>
+			  <tbody>
+			  	<tr>
+			  		<td><input class="form-control" ng-model="email"></td>
+			  		<td><button class="btn btn-primary" ng-click="addEmail()">Add</button></td>
+			  		<td></td>
+			  	</tr>
+			  	<tr class="text-left" ng-repeat="contact in device.notification.contacts">
+			  		<td>{{contact}}</td>
+			  		<td><button class="btn btn-danger" ng-click="deleteEmail()">Delete</button></td>
+			  	</tr>
+			  </tbody>
 			</table>
 		</div>
 

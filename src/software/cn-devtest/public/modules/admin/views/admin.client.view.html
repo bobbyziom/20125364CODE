@@ -1,4 +1,4 @@
-<section data-ng-controller="AdminController">
+<section data-ng-controller="AdminController" data-ng-init="findOne()">
 	<p>
 
 
@@ -22,12 +22,12 @@
 			  		<td><input class="form-control" ng-model="name"></td>
 			  		<td><input class="form-control" ng-model="col"></td>
 			  		<td><input class="form-control" ng-model="id"></td>
-			  		<td><button class="btn btn-primary" ng-click="addContact()">Add</button></td>
+			  		<td><button class="btn btn-success" ng-click="addContact()">Add</button></td>
 			  		<td></td>
 			  	</tr>
 			  	<tr class="text-left" ng-repeat="device in devices">
-			  		<td>{{device.name}}</td>
-			  		<td>{{device.col}}</td>
+			  		<td>{{device.device.name}}</td>
+			  		<td>{{device.device.col}}</td>
 			  		<td>{{device.id}}</td>
 			  		<td><a class="btn btn-primary" href="/#!/admin/{{device._id}}/edit">
 							<i class="glyphicon glyphicon-edit"></i>

@@ -9,6 +9,18 @@ angular.module('core').factory('Imp', [ '$http',
 
 		// Public API
 		return {
+			setup: function(impId, device, callback) {
+
+				var req = {
+					method: 'POST',
+					url: agentUrl + impId + '/setup/' + device.name + '/' + device.col ,
+					headers: {'Content-Type': 'application/json'},
+				};
+
+				$http(req).success(callback);
+
+			},
+
 			getReading: function(impId, callback) {
 
 		      var req = {

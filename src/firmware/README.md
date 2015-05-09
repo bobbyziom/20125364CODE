@@ -39,14 +39,21 @@ return example:
 }
 ```
 
-#### Setup keen collection
+#### Setup device
+
+```
+endpoint path: /setup/<name>/<keen-collection>
+method: POST
+```
+
+#### Change keen collection
 
 ```
 endpoint path: /setup/collection/<collection-name>
 method: POST
 ```
 
-#### Set device name
+#### Change device name
 
 ```
 endpoint path: /setup/collection/<device-name>

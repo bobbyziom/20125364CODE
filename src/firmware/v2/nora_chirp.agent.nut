@@ -36,7 +36,7 @@ const KEEN_WRITE_API_KEY    = "";
 // mailgun credentials
 const MG_API_KEY            = "";
 const MG_DOMAIN             = "";
-const MG_EMAIL              = "";
+const MG_EMAIL              = "Spiio Notifications <notify@spiio.com>";
 
 // 3rd party object setup
 keen        <- KeenIO(KEEN_PROJECT_ID, KEEN_WRITE_API_KEY);
@@ -44,16 +44,23 @@ mail        <- MailGun(MG_API_KEY, MG_DOMAIN, MG_EMAIL);
 api         <- Rocky({ accessControl = true, allowUnsecure = false, strictRouting = false, timeout = 10 });
 
 // device config and credentials (keen collection name (default: "data"))
-SETUP       <- { 
+SETUP <- { 
     device = {
         name = "Test CN #1",
         collection = "data"
     }
     config = {
         collect = 10,
-        interval = 125
+        interval = 120
     },
-    reading = {},
+    reading = {
+        collect_cycle = 0,
+        humidity = 0,
+        lux = 0,
+        temp = 0,
+        moisture = 0,
+        battery = 0
+    },
     notification = {
         contacts = [ "contact@spiio.com" ],
         entity = {
@@ -173,41 +180,66 @@ api.get("/mail/([^/]*)", function(context) {
     context.send(200, "Mail sent!") 
 });
 
-api.get("/collection/([^/]*)", function(context) {
-    SETUP.device.collection <- context.path[1];
+api.post("/setup/([^/]*)/([^/]*)", function(context) {
+    local name = context.path[1];
+    local col = context.path[2];
+    
+    SETUP.device.name   <- name;
+    SETUP.device.col    <- col;
+    
+    server.log(http.jsonencode(SETUP));
+    
+    context.send(200, SETUP); 
+});
+
+api.post("/setup/collection/([^/]*)", function(context) {
+    local collection = context.path[2];
+    SETUP.device.collection <- collection;
     save_settings();
-    context.send(200, SETUP.device.collection)
+    context.send(200, SETUP.device)
 });
 
-api.get("/name/([^/]*)", function(context) {
-    SETUP.device.name <- context.path[1];
-    context.send(200, SETUP.device.name);
+api.post("/setup/name/([^/]*)", function(context) {
+    local name = context.path[2];
+    SETUP.device.name <- name;
+    context.send(200, SETUP.device);
 });
 
-api.get("/notification/([^/]*)", function(context) {
-    if(context.path[1] != "reset") {
-        SETUP.notification.contacts.push(context.path[1]);
-        save_settings();
-        context.send(200, SETUP.notification);
-    } else {
-        foreach(note in SETUP.notification.entity) {
-            note.sent = false;
-        }
-        context.send(200, SETUP.notification.entity);
-    }
+api.post("/setup/notification/email/([^/]*)", function(context) {
+    local email = context.path[3];
+    SETUP.notification.contacts.push(email);
+    save_settings();
+    context.send(200, SETUP.notification.contacts);
 });
 
-api.get("/notification/value/([^/]*)/([^/]*)", function(context) {
+api.post("/setup/notification/battery/([^/]*)", function(context) {
     local sensor = context.path[2];
     local value = context.path[3].tointeger();
+    SETUP.notification.entity[sensor].value <- value;
+    save_settings();
+    context.send(200, SETUP.notification.entity);
+});
 
-    if(sensor in SETUP.notification.entity) {
-        SETUP.notification.entity[sensor].value <- value;
-        save_settings();
-        context.send(200, SETUP.notification.entity);
-    } else {
-        context.send(400, "No such sensor");
-    }
+api.post("/setup/notification/moisture/([^/]*)", function(context) {
+    local sensor = context.path[2];
+    local value = context.path[3].tointeger();
+    SETUP.notification.entity[sensor].value <- value;
+    save_settings();
+    context.send(200, SETUP.notification.entity);
+});
+
+api.post("/setup/config/interval/([^/]*)", function(context) {
+    local interval = context.path[3].tointeger();
+    SETUP.config.interval <- interval;
+    save_settings();
+    context.send(200, SETUP.config);
+});
+
+api.post("/setup/config/collect/([^/]*)", function(context) {
+    local interval = context.path[3].tointeger();
+    SETUP.config.interval <- interval;
+    save_settings();
+    context.send(200, SETUP.config);
 });
 
 // start up

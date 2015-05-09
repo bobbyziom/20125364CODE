@@ -67,35 +67,35 @@ angular.module('core').controller('DashControllerController', ['$scope', 'tbkKee
 		    */
 
 			var humidity = new Keen.Query('average', {
-		      eventCollection: $scope.eventCollection.col,
+		      eventCollection: $scope.eventCollection.device.col,
 		      timeframe: 'this_' + queryTable[$scope.interval-1].amount + '_' + queryTable[$scope.interval-1].semantic,
 		      targetProperty: 'humidity',
 		      interval: _interval
 		    });
 
 		    var temp = new Keen.Query('average', {
-		      eventCollection: $scope.eventCollection.col,
+		      eventCollection: $scope.eventCollection.device.col,
 		      timeframe: 'this_' + queryTable[$scope.interval-1].amount + '_' + queryTable[$scope.interval-1].semantic,
 		      targetProperty: 'temp',
 		      interval: _interval
 		    });
 
 		    var moist = new Keen.Query('average', {
-		      eventCollection: $scope.eventCollection.col,
+		      eventCollection: $scope.eventCollection.device.col,
 		      timeframe: 'this_' + queryTable[$scope.interval-1].amount + '_' + queryTable[$scope.interval-1].semantic,
 		      targetProperty: 'moisture',
 		      interval: _interval
 		    });
 
 		    var light = new Keen.Query('average', {
-		      eventCollection: $scope.eventCollection.col,
+		      eventCollection: $scope.eventCollection.device.col,
 		      timeframe: 'this_' + queryTable[$scope.interval-1].amount + '_' + queryTable[$scope.interval-1].semantic,
 		      targetProperty: 'lux',
 		      interval: _interval
 		    });
 		 
 		 	var batt = new Keen.Query('average', {
-		      eventCollection: $scope.eventCollection.col,
+		      eventCollection: $scope.eventCollection.device.col,
 		      timeframe: 'this_' + queryTable[$scope.interval-1].amount + '_' + queryTable[$scope.interval-1].semantic,
 		      targetProperty: 'battery',
 		      interval: _interval
@@ -141,11 +141,13 @@ angular.module('core').controller('DashControllerController', ['$scope', 'tbkKee
 		};
 
 		$scope.find = function() {
-			Keenio.find(function(data) {
-				_readKey = data.readKey;
-				_projectId = data.projectId;
-				Device.list(function(data) {
-					$scope.eventCollections = data;
+			Keenio.find(function(_keen) {
+				console.log(_keen);
+				_readKey = _keen.readKey;
+				_projectId = _keen.projectId;
+				Device.list(function(_data) {
+					console.log(_data);
+					$scope.eventCollections = _data;
 					$scope.eventCollection = $scope.eventCollections[0];
 					$scope.request(3);
 				});
