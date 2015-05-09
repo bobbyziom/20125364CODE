@@ -71,3 +71,17 @@ method: POST
 endpoint path: /setup/notification/moisture/<value>
 method: POST
 ```
+
+#### Set waking interval
+
+```
+endpoint path: /setup/config/interval/<value>
+method: POST
+```
+
+#### Set number of data collected before sending
+
+```
+endpoint path: /setup/config/collect/<value>
+method: POST
+```
