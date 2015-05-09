@@ -1,88 +1,98 @@
-<section data-ng-controller="EditDeviceController" data-ng-init="findOne()">
-	<div class="jumbotron">
+<section data-ng-init="findOne()">
+
+	<div class="modal-header">
+            <h3 class="modal-title text-center">Edit device</h3>
+    </div>
+	<div class="modal-body">
 
 		<!-- Device management -->
 
-		<p class="text-center">Device</p>
+		<h4>Info</h4>
 
 		<div class="row">
-			<table class="table">
-				<thead>
-				  	<tr>
-					  	<th>Name</th>
-					  	<th>Keen Collection</th>
-					  	<th>Id</th>
-				  	</tr>
-				</thead>
-			    <tbody>
-				  	<tr>
-				  		<td><input class="form-control" ng-model="device.device.name"></td>
-				  		<td><input class="form-control" ng-model="device.device.col"></td>
-				  		<td><input class="form-control" ng-model="device.id"></td>
-				  	</tr>
-				</tbody>
-			</table>
+
+			<div class="col-sm-6">
+				Name
+				<input class="form-control" ng-model="device.name">
+			</div>
+				
+			<div class="col-sm-6">
+				Id
+				<input class="form-control" ng-model="device.id">
+			</div>
+			
 		</div>
 
 		<!-- Trigger setup -->
+		<hr>
 
-		<p class="text-center">Trigger Values</p>
+		<h4>Trigger Setup</h4>
 
 		<div class="row">
-			<table class="table">
-				<thead>
-				  	<tr>
-					  	<th>Battery</th>
-					  	<th>Moisture</th>
-				  	</tr>
-				</thead>
-			    <tbody>
-				  	<tr>
-				  		<td><input type="number" class="form-control" ng-model="device.notification.entity.battery.value"></td>
-				  		<td><input type="number" class="form-control" ng-model="device.notification.entity.moisture.value"></td>
-				  	</tr>
-				</tbody>
-			</table>
+
+
+			<div class="col-sm-6">
+				Battery
+				<input type="number" class="form-control" ng-model="device.notification.entity.battery.value">
+			</div>
+				
+			<div class="col-sm-6">
+				Moisture
+				<input type="number" class="form-control" ng-model="device.notification.entity.moisture.value">
+			</div>
+
 		</div>
 
 		<!-- Subscriptions -->
+		<hr>
 
-		<p class="text-center">Subscriptions</p>
+		<h4>Subscription Setup</h4>
 
 		<div class="row">
-			<table class="table">
-			  <thead>
-			  	<tr>
-				  	<th>Email</th>
-				  	<th>Action</th>
-			  	</tr>
-			  </thead>
-			  <tbody>
-			  	<tr>
-			  		<td><input class="form-control" ng-model="email"></td>
-			  		<td><button class="btn btn-primary" ng-click="addEmail()">Add</button></td>
-			  		<td></td>
-			  	</tr>
-			  	<tr class="text-left" ng-repeat="contact in device.notification.contacts">
-			  		<td>{{contact}}</td>
-			  		<td><button class="btn btn-danger" ng-click="deleteEmail()">Delete</button></td>
-			  	</tr>
-			  </tbody>
-			</table>
+			<div class="col-sm-12">
+				<table class="table">
+					<thead>
+						<tr>
+						  	<th>Email</th>
+						  	<th>Action</th>
+					  	</tr>
+					</thead>
+				  <tbody>
+				  	<tr class="text-left" ng-repeat="contact in device.notification.contacts">
+				  		<td>{{contact}}</td>
+				  		<td><button class="btn btn-danger" ng-click="removeEmail($index)">Delete</button></td>
+				  	</tr>
+				  	<tr>
+				  		<td><input class="form-control" ng-model="email"></td>
+				  		<td><button class="btn btn-primary" ng-click="addEmail()">Add</button></td>
+				  	</tr>
+				  </tbody>
+				</table>
+			</div>
 		</div>
 
-		<p>
+		
+
+		<!-- Delete device -->
+		<hr>
+
+		<h4>Delete Device</h4>
 
 		<div class="row">
-			<div class="text-center">
-					<button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-					<button class="btn btn-primary" ng-click="save()">Save</button>
-			</div>
-			<div class="text-right">
-
-				<button class="btn btn-danger" ng-click="remove()">Delete Device</button>
+			<div class="col-sm-12">
+				<button class="btn btn-danger" ng-click="remove()">Delete Device</button> (Be careful, can't be undone!)
 			</div>
 		</div>
 
 	</div>
+
+
+	<div class="modal-footer">
+		<div class="text-right">
+			<button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+			<button class="btn btn-primary" ng-click="save()">Save</button>
+		</div>
+	</div>
+
+	
 </section>

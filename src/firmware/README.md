@@ -42,14 +42,7 @@ return example:
 #### Setup device
 
 ```
-endpoint path: /setup/<name>/<keen-collection>
-method: POST
-```
-
-#### Change keen collection
-
-```
-endpoint path: /setup/collection/<collection-name>
+endpoint path: /setup/<name>
 method: POST
 ```
 
@@ -60,10 +53,17 @@ endpoint path: /setup/collection/<device-name>
 method: POST
 ```
 
-#### Append email to notification subscriptions
+#### Add email to notification subscriptions
 
 ```
-endpoint path: /setup/notification/email/<email>
+endpoint path: /setup/notification/email/add/<email>
+method: POST
+```
+
+#### Remove email to notification subscriptions
+
+```
+endpoint path: /setup/notification/email/remove/<email>
 method: POST
 ```
 

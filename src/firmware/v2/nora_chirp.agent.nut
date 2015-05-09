@@ -45,10 +45,8 @@ api         <- Rocky({ accessControl = true, allowUnsecure = false, strictRoutin
 
 // device config and credentials (keen collection name (default: "data"))
 SETUP <- { 
-    device = {
-        name = "Test CN #1",
-        collection = "data"
-    }
+    name = "Test CN #1",
+    id = http.agenturl().slice(30),
     config = {
         collect = 10,
         interval = 120
@@ -114,7 +112,7 @@ device.on("keen", function(data) {
     
     server.log(http.jsonencode(tosend));
     
-    keen.sendEvent(SETUP.device.collection, tosend, function(resp) {
+    keen.sendEvent(SETUP.id, tosend, function(resp) {
         //server.log(resp.statuscode + ": " + resp.body);
     });
     
@@ -180,36 +178,31 @@ api.get("/mail/([^/]*)", function(context) {
     context.send(200, "Mail sent!") 
 });
 
-api.post("/setup/([^/]*)/([^/]*)", function(context) {
+api.post("/setup/([^/]*)", function(context) {
     local name = context.path[1];
-    local col = context.path[2];
-    
-    SETUP.device.name   <- name;
-    SETUP.device.col    <- col;
-    
-    server.log(http.jsonencode(SETUP));
-    
+    SETUP.name   <- name;
     context.send(200, SETUP); 
-});
-
-api.post("/setup/collection/([^/]*)", function(context) {
-    local collection = context.path[2];
-    SETUP.device.collection <- collection;
-    save_settings();
-    context.send(200, SETUP.device)
 });
 
 api.post("/setup/name/([^/]*)", function(context) {
     local name = context.path[2];
-    SETUP.device.name <- name;
+    SETUP.name <- name;
     context.send(200, SETUP.device);
 });
 
-api.post("/setup/notification/email/([^/]*)", function(context) {
-    local email = context.path[3];
+api.post("/setup/notification/email/add/([^/]*)", function(context) {
+    local email = context.path[4];
     SETUP.notification.contacts.push(email);
     save_settings();
     context.send(200, SETUP.notification.contacts);
+});
+
+api.post("/setup/notification/email/remove/([^/]*)", function(context) {
+   local email = context.path[4];
+   local index = SETUP.notification.contacts.find(email);
+   SETUP.notification.contacts.remove(index);
+   save_settings();
+   context.send(200, SETUP.notification.contacts);
 });
 
 api.post("/setup/notification/battery/([^/]*)", function(context) {

@@ -9,11 +9,11 @@ angular.module('core').factory('Imp', [ '$http',
 
 		// Public API
 		return {
-			setup: function(impId, device, callback) {
+			setup: function(impId, name, callback) {
 
 				var req = {
 					method: 'POST',
-					url: agentUrl + impId + '/setup/' + device.name + '/' + device.col ,
+					url: agentUrl + impId + '/setup/' + name,
 					headers: {'Content-Type': 'application/json'},
 				};
 
@@ -61,7 +61,19 @@ angular.module('core').factory('Imp', [ '$http',
 
 		      var req = {
 		        method: 'POST',
-		        url: agentUrl + impId + '/setup/notification/email/' + email,
+		        url: agentUrl + impId + '/setup/notification/email/add/' + email,
+		        headers: {'Content-Type': 'application/json'}
+		      };
+
+		      $http(req).success(callback);
+
+		    },
+
+		    removeEmail: function(impId, email, callback) {
+
+		      var req = {
+		        method: 'POST',
+		        url: agentUrl + impId + '/setup/notification/email/remove/' + email,
 		        headers: {'Content-Type': 'application/json'}
 		      };
 

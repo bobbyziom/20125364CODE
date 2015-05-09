@@ -1,4 +1,4 @@
-<section data-ng-controller="AdminController" data-ng-init="findOne()">
+<section data-ng-controller="AdminController" data-ng-init="refresh()">
 	<p>
 
 
@@ -12,44 +12,40 @@
 			  <thead>
 			  	<tr>
 				  	<th>Name</th>
-				  	<th>Keen Collection</th>
-				  	<th>Agent Id</th>
+				  	<th>Device Id</th>
 				  	<th>Action</th>
 			  	</tr>
 			  </thead>
 			  <tbody>
-			  	<tr>
-			  		<td><input class="form-control" ng-model="name"></td>
-			  		<td><input class="form-control" ng-model="col"></td>
-			  		<td><input class="form-control" ng-model="id"></td>
-			  		<td><button class="btn btn-success" ng-click="addContact()">Add</button></td>
-			  		<td></td>
-			  	</tr>
 			  	<tr class="text-left" ng-repeat="device in devices">
-			  		<td>{{device.device.name}}</td>
-			  		<td>{{device.device.col}}</td>
+			  		<td>{{device.name}}</td>
 			  		<td>{{device.id}}</td>
-			  		<td><a class="btn btn-primary" href="/#!/admin/{{device._id}}/edit">
-							<i class="glyphicon glyphicon-edit"></i>
-						</a>
-					</td>
+			  		<td>
+			  			<button class="btn btn-primary" ng-click="open(device._id)">
+			  			<i class="glyphicon glyphicon-edit"></i>
+			  			</button>
+			  		</td>
 			  		
 			  	</tr>
+
+			  	<tr>
+			  		<td><input class="form-control" ng-model="name"></td>
+			  		<td><input class="form-control" ng-model="id"></td>
+			  		<td><button class="btn btn-success" ng-click="addContact()">Add</button></td>
+			  	</tr>
+			  	
 			  </tbody>
 			</table>
 		</div>
 
-		<!-- Keen IO Forms -->
+		<!-- Keen IO Forms 
 
 		<p class="text-center">Keen.io</p>
 		<div class="row">
-	  		<pre>Project Id: {{keen.projectId}}</pre>
-			<pre>Read Key: {{keen.readKey}}</pre>
-	  		<a class="btn btn-primary" href="/#!/keen">Edit Keen</a>
-	  		<a class="btn btn-success" href="/#!/dash">Finish</a>
+	  		<a class="btn btn-primary text-center" href="/#!/keen">Edit Keen</a>
 		</div>	
 
-		<!-- end of jumbo -->
+		 end of jumbo -->
 
 	</div>
 

@@ -15,9 +15,9 @@ var DeviceSchema = new Schema({
 		type: String,
 		default: ''
 	},
-	device: {
-		name: String,
-		col: String
+	name: {
+		type: String,
+		default: ''
 	},
 	config: {
 		collect: Number,
