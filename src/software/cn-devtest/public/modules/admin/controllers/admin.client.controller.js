@@ -1,9 +1,15 @@
 'use strict';
 
-angular.module('admin').controller('AdminController', ['$scope', '$modal', 'Device', 'Keen', 'Imp',
-	function($scope, $modal, Device, Keen, Imp) {
+angular.module('admin').controller('AdminController', ['$scope', '$modal', 'Device', 'Keen', 'Imp', 'Authentication',
+	function($scope, $modal, Device, Keen, Imp, Authentication) {
 
-		/* Controller methods */
+		$scope.checkUser = function() {
+			if(Authentication.user.roles[0] === 'super' || Authentication.user.roles[0] === 'admin') {
+				return true;
+			} else {
+				return false;
+			}
+		};
 
 		$scope.refresh = function() {
 			$scope.name = '';

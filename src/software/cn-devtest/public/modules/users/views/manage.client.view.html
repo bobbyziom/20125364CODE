@@ -1,0 +1,37 @@
+<section data-ng-controller="ManageController">
+	<div class="jumbotron" data-ng-hide="authentication.user.roles[0] == 'super'">
+		<h3>You do not have permission!</h3>
+	</div>
+	<div class="jumbotron" data-ng-show="authentication.user.roles[0] == 'super'">
+
+		<p class="text-center">User Management</p>
+		<div class="row">
+			<table class="table">
+			  <thead>
+			  	<tr>
+				  	<th>Name</th>
+				  	<th>Last Name</th>
+				  	<th>Role</th>
+				  	<th>Action</th>
+			  	</tr>
+			  </thead>
+			  <tbody>
+			  	<tr class="text-left" ng-repeat="user in users">
+			  		<td>{{user.firstName}}</td>
+			  		<td>{{user.lastName}}</td>
+			  		<td>{{user.roles[0]}}</td>
+			  		<td>
+			  			<button class="btn btn-primary" ng-click="open(user._id)">
+			  			<i class="glyphicon glyphicon-edit"></i>
+			  			</button>
+			  		</td>
+			  		
+			  	</tr>
+			  	
+			  </tbody>
+			</table>
+		</div>
+
+	</div>
+
+</section>

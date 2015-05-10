@@ -1,0 +1,20 @@
+<section data-ng-init="findOne()">
+	<div class="modal-header">
+            <h3 class="modal-title text-center">{{user.username}}</h3>
+    </div>
+	<div class="modal-body">
+
+		<!-- Device management -->
+		Change role
+		<select class="form-control" ng-model="role" ng-options="role for role in roles"></select>
+
+	</div>
+
+
+	<div class="modal-footer">
+		<div class="text-right">
+			<button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+			<button class="btn btn-primary" ng-click="save()">Save</button>
+		</div>
+	</div>
+</section>

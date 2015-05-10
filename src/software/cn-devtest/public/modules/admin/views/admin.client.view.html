@@ -1,8 +1,10 @@
 <section data-ng-controller="AdminController" data-ng-init="refresh()">
-	<p>
 
+	<div class="jumbotron" data-ng-hide="checkUser()">
+		<h3>You do not have permission!</h3>
+	</div>
 
-	<div class="jumbotron">
+	<div class="jumbotron" data-ng-show="checkUser()">
 
 		<!-- Device management -->
 

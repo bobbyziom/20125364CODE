@@ -29,7 +29,23 @@
 			</li>
 			<li class="divider-vertical"></li>
 			<li ui-route="/dash" ng-class="{active: $uiRoute}">
+				<a href="/#!/dash">Demo</a>
+			</li>
+			
+		</ul>
+		<ul class="nav navbar-nav navbar-left" data-ng-show="authentication.user">
+			<li class="divider-vertical"></li>
+			<li ui-route="/dash" ng-class="{active: $uiRoute}">
 				<a href="/#!/dash">Dashboard</a>
+			</li>
+			
+		</ul>
+		<ul class="nav navbar-nav navbar-right" data-ng-hide="authentication.user">
+			<li ui-route="/signin" ng-class="{active: $uiRoute}">
+				<a href="/#!/signin">Login</a>
+			</li>
+			<li>
+				<div class="navbar-text credit pull-right">powered by <a href="http://www.spiio.com" target="_blank">spiio.com</a></div>
 			</li>
 		</ul>
 		<ul class="nav navbar-nav navbar-right" data-ng-show="authentication.user">
@@ -41,9 +57,9 @@
 					<li>
 						<a href="/#!/settings/profile">Edit Profile</a>
 					</li>
-					<li>
+					<!-- li>
 						<a href="/#!/settings/accounts">Manage Social Accounts</a>
-					</li>
+					</li -->
 					<li data-ng-show="authentication.user.provider === 'local'">
 						<a href="/#!/settings/password">Change Password</a>
 					</li>
@@ -53,7 +69,10 @@
 					</li>
 				</ul>
 			</li>
+			<li>
+				<div class="navbar-text credit pull-right">powered by <a href="http://www.spiio.com" target="_blank">spiio.com</a></div>
+			</li>
 		</ul>
-		<div class="navbar-text credit pull-right">powered by <a href="http://www.spiio.com" target="_blank">spiio.com</a></div>
+		
 	</nav>
 </div>
