@@ -1,0 +1,65 @@
+<section data-ng-controller="LocationController">
+	<p>
+
+	<!-- Permission control -->
+
+	<div class="jumbotron" data-ng-hide="checkUser()">
+		<h3>You do not have permission!</h3>
+	</div>
+
+	<div class="jumbotron" data-ng-show="checkUser()">
+
+
+		
+		<!-- Device management -->
+
+		<p class="text-center">Locations</p>
+
+		<div class="row">
+			<div class="col-sm-4">
+				
+			</div>
+			<div class="col-sm-4">
+				<input class="form-control text-center" type="text" ng-model="search" class="form-control" placeholder="Search">
+			</div>
+			<div class="col-sm-4">
+				<p class="pull-right" data-ng-show="authentication.user.roles[0] === 'super'"><button class="btn btn-success" ng-click="open()">Add</button></p>	
+			</div>
+
+		</div>
+
+		<p></p>
+
+		<div class="row">
+			<table class="table">
+			  <thead>
+			  	<tr>
+				  	<th>Name</th>
+				  	<th>Adress</th>
+				  	<th>Devices</th>
+				  	<th>Contact</th>
+				  	<th>Action</th>
+			  	</tr>
+			  </thead>
+			  <tbody>
+			  	<tr class="text-left" ng-repeat="location in locations | filter:search">
+			  		<td>{{location.name}}</td>
+			  		<td>{{location.adr}}</td>
+			  		<td>{{location.devices.length}}</td>
+			  		<td>{{location.contact.firstName}} {{location.contact.lastName}}</td>
+			  		<td><a class="btn btn-primary" href="/#!/dash">Go to</a></td>
+			  </tbody>
+			</table>
+		</div>
+
+		<!-- Keen IO Forms 
+
+		<p class="text-center">Keen.io</p>
+		<div class="row">
+	  		<a class="btn btn-primary text-center" href="/#!/keen">Edit Keen</a>
+		</div>	
+
+		 end of jumbo -->
+
+	</div>
+</section>

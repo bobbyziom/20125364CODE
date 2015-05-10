@@ -9,6 +9,10 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 
 		// Home state routing
 		$stateProvider.
+		state('demo', {
+			url: '/demo',
+			templateUrl: 'modules/core/views/dash.client.view.html'
+		}).
 		state('dash', {
 			url: '/dash',
 			templateUrl: 'modules/core/views/dash.client.view.html'

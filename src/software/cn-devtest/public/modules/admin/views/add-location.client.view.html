@@ -1,0 +1,38 @@
+<section>
+	<!-- Header -->
+
+	<div class="modal-header">
+            <h3 class="modal-title text-center">Add Location</h3>
+    </div>
+	<div class="modal-body">
+
+		<!-- forms here -->
+		<label>Location</label>
+		<input class="form-control" ng-model="location.name">
+
+		<label>Adr</label>
+		<input class="form-control" ng-model="location.adr">
+
+		<label>Contact first name</label>
+		<input class="form-control" ng-model="location.contact.firstName">
+
+		<label>Contact first name</label>
+		<input class="form-control" ng-model="location.contact.lastName">
+
+		<label>Contact phone</label>
+		<input class="form-control" ng-model="location.contact.phone">
+
+		<label>E-mail</label>
+		<input class="form-control" ng-model="location.email">
+
+	</div>
+
+	<!-- Footer -->
+	
+	<div class="modal-footer">
+		<div class="text-right">
+			<button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+			<button class="btn btn-primary" ng-click="save()">Save</button>
+		</div>
+	</div>
+</section>

@@ -1,5 +1,7 @@
 <section data-ng-controller="AdminController" data-ng-init="refresh()">
 
+	<p>
+
 	<div class="jumbotron" data-ng-hide="checkUser()">
 		<h3>You do not have permission!</h3>
 	</div>
@@ -16,6 +18,7 @@
 				  	<th>Name</th>
 				  	<th>Device Id</th>
 				  	<th>Action</th>
+				  	<th>Demo?</th>
 			  	</tr>
 			  </thead>
 			  <tbody>
@@ -27,13 +30,13 @@
 			  			<i class="glyphicon glyphicon-edit"></i>
 			  			</button>
 			  		</td>
-			  		
+			  		<td><input type="checkbox" ng-change="updateDevice(device._id, $index)" ng-model="device.public"></td>	
 			  	</tr>
 
 			  	<tr>
-			  		<td><input class="form-control" ng-model="name" placeholder="coolname"></td>
+			  		<td><input class="form-control" ng-model="name" placeholder="DeviceName"></td>
 			  		<td><input class="form-control" ng-model="id" placeholder="ydfk32lSe43"></td>
-			  		<td><button class="btn btn-success" ng-click="addContact()">Add</button></td>
+			  		<td><button class="btn btn-success" ng-click="addDevice()">Add</button></td>
 			  	</tr>
 			  	
 			  </tbody>

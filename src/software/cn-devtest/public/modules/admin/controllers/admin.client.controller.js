@@ -24,7 +24,7 @@ angular.module('admin').controller('AdminController', ['$scope', '$modal', 'Devi
 
 		/* $scope methods */
 
-		$scope.addContact = function() {
+		$scope.addDevice = function() {
 
 			// send config to device and get back device setup
 			// then store in database
@@ -36,6 +36,12 @@ angular.module('admin').controller('AdminController', ['$scope', '$modal', 'Devi
 			});
 
 		};	
+
+		$scope.updateDevice = function(id, index) {
+			Device.edit(id, $scope.devices[index], function(data) {
+				// maybe a toast here to give user feedback
+			});
+		};
 
 		$scope.open = function (id) {
 

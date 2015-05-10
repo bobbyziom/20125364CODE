@@ -6,29 +6,29 @@
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
     _ = require('lodash'),
-    Device = mongoose.model('Device');
+    Location = mongoose.model('Location');
 
 /**
- * Create a Device
+ * Create a Location
  */
 exports.create = function(req, res) {
-	var device = new Device(req.body);
-	device.save(function(err) {
+	var loc = new Location(req.body);
+	loc.save(function(err) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.json(device);
+			res.json(loc);
 		}
 	});
 };
 
 /**
- * Show the current Device
+ * Show the current Location
  */
 exports.read = function(req, res) {
-	Device.findById(req.params.id, function(err, docs) {
+	Location.findById(req.params.id, function(err, docs) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
@@ -40,10 +40,10 @@ exports.read = function(req, res) {
 };
 
 /**
- * Update a Device
+ * Update a Location
  */
 exports.update = function(req, res) {
-	Device.update({ _id: req.params.id }, req.body, function(err, doc) {
+	Location.update({ _id: req.params.id }, req.body, function(err, doc) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
@@ -55,10 +55,10 @@ exports.update = function(req, res) {
 };
 
 /**
- * Delete an Device
+ * Delete an Location
  */
 exports.delete = function(req, res, id) {
-	Device.findByIdAndRemove(req.params.id, function(err, docs) {
+	Location.findByIdAndRemove(req.params.id, function(err, docs) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
@@ -70,10 +70,10 @@ exports.delete = function(req, res, id) {
 };
 
 /**
- * List of Devices
+ * List of Locations
  */
 exports.list = function(req, res) {
-	Device.find(function(err, docs) {
+	Location.find(function(err, docs) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)

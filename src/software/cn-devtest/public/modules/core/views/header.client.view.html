@@ -28,27 +28,26 @@
 				<a href="/#!/">Home</a>
 			</li>
 			<li class="divider-vertical"></li>
-			<li ui-route="/dash" ng-class="{active: $uiRoute}">
-				<a href="/#!/dash">Demo</a>
+			<li ui-route="/demo" ng-class="{active: $uiRoute}">
+				<a href="/#!/demo">Demo</a>
 			</li>
-			
 		</ul>
-		<ul class="nav navbar-nav navbar-left" data-ng-show="authentication.user">
+
+		<!-- ul class="nav navbar-nav navbar-left" data-ng-show="authentication.user">
 			<li class="divider-vertical"></li>
 			<li ui-route="/dash" ng-class="{active: $uiRoute}">
 				<a href="/#!/dash">Dashboard</a>
 			</li>
-			
-		</ul>
-		<ul class="nav navbar-nav navbar-right" data-ng-hide="authentication.user">
+			<div class="navbar-text text-center">powered by <a href="http://www.spiio.com" target="_blank">spiio.com</a></div>
+
+		</ul -->
+		
+		<ul class="nav navbar-nav pull-right" data-ng-hide="authentication.user">
 			<li ui-route="/signin" ng-class="{active: $uiRoute}">
 				<a href="/#!/signin">Login</a>
 			</li>
-			<li>
-				<div class="navbar-text credit pull-right">powered by <a href="http://www.spiio.com" target="_blank">spiio.com</a></div>
-			</li>
 		</ul>
-		<ul class="nav navbar-nav navbar-right" data-ng-show="authentication.user">
+		<ul class="nav navbar-nav pull-right" data-ng-show="authentication.user">
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 					<span data-ng-bind="authentication.user.displayName"></span> <b class="caret"></b>
@@ -63,15 +62,17 @@
 					<li data-ng-show="authentication.user.provider === 'local'">
 						<a href="/#!/settings/password">Change Password</a>
 					</li>
+					<li class="divider" data-ng-show="authentication.user.roles[0] === 'super'"></li>
+					<li data-ng-show="authentication.user.roles[0] === 'super'">
+						<a href="/#!/manage">Manage Users</a>
+					</li>
 					<li class="divider"></li>
 					<li>
 						<a href="/auth/signout">Signout</a>
 					</li>
 				</ul>
 			</li>
-			<li>
-				<div class="navbar-text credit pull-right">powered by <a href="http://www.spiio.com" target="_blank">spiio.com</a></div>
-			</li>
+			
 		</ul>
 		
 	</nav>

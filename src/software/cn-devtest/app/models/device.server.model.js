@@ -15,6 +15,7 @@ var DeviceSchema = new Schema({
 		type: String,
 		default: ''
 	},
+    public: Boolean,
 	name: {
 		type: String,
 		default: ''

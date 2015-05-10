@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('DashControllerController', ['$scope', 'tbkKeen', '$http', 'Imp', 'Device', 'Keen',
-	function($scope, Keen, $http, Imp, Device, Keenio) {
+angular.module('core').controller('DashControllerController', ['$scope', '$filter', '$location', 'tbkKeen', '$http', 'Imp', 'Device', 'Keen',
+	function($scope, $filter, $location, Keen, $http, Imp, Device, Keenio) {
 
 		var _projectId = null; 
 		var _readKey = null;
@@ -146,7 +146,16 @@ angular.module('core').controller('DashControllerController', ['$scope', 'tbkKee
 				_projectId = _keen.projectId;
 				Device.list(function(_data) {
 					$scope.eventCollections = _data;
-					$scope.eventCollection = $scope.eventCollections[0];
+					// if on the demo page
+					// show only public marked devices
+					if($location.path() === '/demo') {
+						$scope.eventCollections = $filter('filter')($scope.eventCollections, { public: true} );
+						$scope.eventCollection = $scope.eventCollections[0];
+					} else {
+						$scope.eventCollection = $scope.eventCollections[0];
+					}
+
+					// begin to load 1 week data
 					$scope.request(3);
 				});
 			});
