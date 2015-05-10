@@ -13,13 +13,14 @@ var LocationSchema = new Schema({
 
 	name: String,
 	adr: String,
-	devices: [ String ],
 	contact: {
 		firstName: String,
 		lastName: String,
 		phone: Number,
 		email: String
-	}
+	},
+	devices: [ String ]
+	
 
 });
 

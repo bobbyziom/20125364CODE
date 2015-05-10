@@ -9,8 +9,8 @@ angular.module('admin').config(['$stateProvider',
 			url: '/location',
 			templateUrl: 'modules/admin/views/location.client.view.html'
 		}).
-		state('admin', {
-			url: '/admin',
+		state('devices', {
+			url: '/devices',
 			templateUrl: 'modules/admin/views/admin.client.view.html'
 		});
 	}

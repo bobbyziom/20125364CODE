@@ -8,7 +8,7 @@ angular.module('admin').run(['Menus',
 		
 		Menus.addMenuItem('topbar', 'Dashboard', 'dash', 'item', undefined, false, [ 'user', 'admin', 'super']);
 
-		Menus.addMenuItem('topbar', 'Devices', 'admin', 'item', undefined, false, [ 'admin' , 'super']);
+		Menus.addMenuItem('topbar', 'Devices', 'devices', 'item', undefined, false, [ 'admin' , 'super']);
 
 	}
 ]);

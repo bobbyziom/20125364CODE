@@ -9,11 +9,9 @@
 
 	<div class="jumbotron" data-ng-show="checkUser()">
 
-
-		
 		<!-- Device management -->
 
-		<p class="text-center">Locations</p>
+		<p class="text-center">Select Location</p>
 
 		<div class="row">
 			<div class="col-sm-4">
@@ -38,7 +36,8 @@
 				  	<th>Adress</th>
 				  	<th>Devices</th>
 				  	<th>Contact</th>
-				  	<th>Action</th>
+				  	<th>Dashboard</th>
+				  	<th>Devices</th>
 			  	</tr>
 			  </thead>
 			  <tbody>
@@ -47,7 +46,10 @@
 			  		<td>{{location.adr}}</td>
 			  		<td>{{location.devices.length}}</td>
 			  		<td>{{location.contact.firstName}} {{location.contact.lastName}}</td>
-			  		<td><a class="btn btn-primary" href="/#!/dash">Go to</a></td>
+			  		<td><a class="btn btn-primary" href="/#!/dash">Dashboard</a></td>
+			  		<td data-ng-show="authentication.user.roles[0] === 'super'">
+			  			<a class="btn btn-primary" href="/#!/devices">Devices</a>
+			  		</td>
 			  </tbody>
 			</table>
 		</div>

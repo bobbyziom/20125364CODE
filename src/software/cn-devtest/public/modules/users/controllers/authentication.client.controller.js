@@ -26,7 +26,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 
 				// And redirect to the index page
 				if($scope.authentication.user.roles[0] !== 'guest') {
-					$location.path('dash');	
+					$location.path('location');	
 				} else {
 					$location.path('demo');
 				}
