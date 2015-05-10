@@ -9,12 +9,15 @@ module.exports = function(app) {
 	// User Routes
 	var users = require('../../app/controllers/users.server.controller');
 
-	// Get all users in database
+	// Get all users from database
 	app.route('/users')
 		.get(users.list);
 
+	// Single user interface
 	app.route('/users/:id')
-		.get(users.read);
+		.get(users.read)
+		.delete(users.delete)
+		.put(users.update);
 
 	// Setting up the users profile api
 	app.route('/users/me').get(users.me);

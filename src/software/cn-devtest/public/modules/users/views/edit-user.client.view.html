@@ -1,20 +1,40 @@
 <section data-ng-init="findOne()">
+
+	<!-- Header -->
+
 	<div class="modal-header">
             <h3 class="modal-title text-center">{{user.username}}</h3>
     </div>
 	<div class="modal-body">
 
-		<!-- Device management -->
-		Change role
-		<select class="form-control" ng-model="role" ng-options="role for role in roles"></select>
+		<!-- Role management -->
+
+		<h4>Change Role</h4>
+		<div class="row">
+			<div class="col-sm-12">
+				<select class="form-control" ng-model="role" ng-options="role for role in roles"></select>
+			</div>
+		</div>
+
+		<!-- Delete device -->
+
+		<h4>Delete Device</h4>
+
+		<div class="row">
+			<div class="col-sm-12">
+				<button class="btn btn-danger" ng-click="remove()">Delete Device</button> (Be careful, can't be undone!)
+			</div>
+		</div>
 
 	</div>
 
-
+	<!-- Footer -->
+	
 	<div class="modal-footer">
 		<div class="text-right">
 			<button class="btn btn-warning" ng-click="cancel()">Cancel</button>
 			<button class="btn btn-primary" ng-click="save()">Save</button>
 		</div>
 	</div>
+
 </section>

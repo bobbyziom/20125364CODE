@@ -17,6 +17,10 @@ angular.module('users').factory('Userdb', [ '$http',
 
 			update: function(id, user, callback) {
 				$http.put('/users/' + id, user).success(callback);
+			},
+
+			delete: function(id, callback) {
+				$http.delete('/users/' + id).success(callback);
 			}
 		};
 	}

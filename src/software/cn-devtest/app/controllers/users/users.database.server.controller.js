@@ -35,14 +35,30 @@ exports.read = function(req, res) {
  * Update a Usersdatabase
  */
 exports.update = function(req, res) {
-
+	User.update({ _id: req.params.id }, req.body, function(err, doc) {
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {
+			res.json(doc);
+		}
+	});
 };
 
 /**
  * Delete an Usersdatabase
  */
 exports.delete = function(req, res) {
-
+	User.findByIdAndRemove(req.params.id, function(err, docs) {
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {
+			res.json(docs);
+		}
+	});
 };
 
 /**

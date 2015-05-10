@@ -14,7 +14,12 @@ angular.module('users').controller('EditUserController', ['$scope', '$modalInsta
 		};
 
 		$scope.save = function() {
-			$modalInstance.close();
+			$scope.user.roles[0] = $scope.role;
+			Userdb.update(userId, $scope.user, function(data) {
+				console.log(data);
+				$modalInstance.close();
+			});
+			
 		};
 
 		$scope.cancel = function() {
