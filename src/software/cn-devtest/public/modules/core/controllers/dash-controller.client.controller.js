@@ -34,8 +34,6 @@ angular.module('core').controller('DashControllerController', ['$scope', '$filte
 
 			//console.log($scope.eventCollection);
 
-			$scope.interval = interval;
-
 			var chart = new Keen.Dataviz()
 		    .el(document.getElementById('qual'))
 		    .chartType('areachart')
@@ -59,7 +57,7 @@ angular.module('core').controller('DashControllerController', ['$scope', '$filte
 		    var _interval = 'hourly';
 
 		    /*
-		    if($scope.interval > 2) {
+		    if(interval > 2) {
 		      _interval = 'hourly';
 		    } else {
 		      _interval = 'minutely';
@@ -68,35 +66,35 @@ angular.module('core').controller('DashControllerController', ['$scope', '$filte
 
 			var humidity = new Keen.Query('average', {
 		      eventCollection: $scope.eventCollection.id,
-		      timeframe: 'this_' + queryTable[$scope.interval-1].amount + '_' + queryTable[$scope.interval-1].semantic,
+		      timeframe: 'this_' + queryTable[interval-1].amount + '_' + queryTable[interval-1].semantic,
 		      targetProperty: 'humidity',
 		      interval: _interval
 		    });
 
 		    var temp = new Keen.Query('average', {
 		      eventCollection: $scope.eventCollection.id,
-		      timeframe: 'this_' + queryTable[$scope.interval-1].amount + '_' + queryTable[$scope.interval-1].semantic,
+		      timeframe: 'this_' + queryTable[interval-1].amount + '_' + queryTable[interval-1].semantic,
 		      targetProperty: 'temp',
 		      interval: _interval
 		    });
 
 		    var moist = new Keen.Query('average', {
 		      eventCollection: $scope.eventCollection.id,
-		      timeframe: 'this_' + queryTable[$scope.interval-1].amount + '_' + queryTable[$scope.interval-1].semantic,
+		      timeframe: 'this_' + queryTable[interval-1].amount + '_' + queryTable[interval-1].semantic,
 		      targetProperty: 'moisture',
 		      interval: _interval
 		    });
 
 		    var light = new Keen.Query('average', {
 		      eventCollection: $scope.eventCollection.id,
-		      timeframe: 'this_' + queryTable[$scope.interval-1].amount + '_' + queryTable[$scope.interval-1].semantic,
+		      timeframe: 'this_' + queryTable[interval-1].amount + '_' + queryTable[interval-1].semantic,
 		      targetProperty: 'lux',
 		      interval: _interval
 		    });
 		 
 		 	var batt = new Keen.Query('average', {
 		      eventCollection: $scope.eventCollection.id,
-		      timeframe: 'this_' + queryTable[$scope.interval-1].amount + '_' + queryTable[$scope.interval-1].semantic,
+		      timeframe: 'this_' + queryTable[interval-1].amount + '_' + queryTable[interval-1].semantic,
 		      targetProperty: 'battery',
 		      interval: _interval
 		    });

@@ -7,20 +7,24 @@
 
 		<!-- Device management -->
 
-		<h4>Info</h4>
+		<div data-ng-hide="authentication.user.roles[0] !== 'super'">
 
-		<div class="row">
+			<h4>Info</h4>
 
-			<div class="col-sm-6">
-				Name
-				<input class="form-control" ng-model="device.name">
-			</div>
+			<div class="row">
+
+				<div class="col-sm-6">
+					Name
+					<input class="form-control" data-ng-model="device.name">
+				</div>
+					
+				<div class="col-sm-6">
+					Id
+					<input class="form-control" data-ng-model="device.id">
+				</div>
 				
-			<div class="col-sm-6">
-				Id
-				<input class="form-control" ng-model="device.id">
 			</div>
-			
+
 		</div>
 
 		<!-- Trigger setup -->
@@ -71,17 +75,19 @@
 			</div>
 		</div>
 
-		
+		<div data-ng-hide="authentication.user.roles[0] !== 'super'">		
 
-		<!-- Delete device -->
-		<hr>
+			<!-- Delete device -->
+			<hr>
 
-		<h4>Delete Device</h4>
+			<h4>Delete Device</h4>
 
-		<div class="row">
-			<div class="col-sm-12">
-				<button class="btn btn-danger" ng-click="remove()">Delete Device</button> (Be careful, can't be undone!)
+			<div class="row">
+				<div class="col-sm-12">
+					<button class="btn btn-danger" ng-click="remove()">Delete Device</button> (Be careful, can't be undone!)
+				</div>
 			</div>
+
 		</div>
 
 	</div>

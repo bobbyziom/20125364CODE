@@ -3,8 +3,10 @@
 angular.module('admin').controller('AdminController', ['$scope', '$modal', 'Device', 'Keen', 'Imp', 'Authentication',
 	function($scope, $modal, Device, Keen, Imp, Authentication) {
 
-		$scope.checkUser = function() {
-			if(Authentication.user.roles[0] === 'super' || Authentication.user.roles[0] === 'admin') {
+		$scope.authentication = Authentication;
+
+		$scope.isAboveAdmin = function() {
+			if($scope.authentication.user.roles[0] === 'super' || $scope.authentication.user.roles[0] === 'admin') {
 				return true;
 			} else {
 				return false;

@@ -1,14 +1,16 @@
 'use strict';
 
-angular.module('admin').controller('EditDeviceController', ['$scope', '$stateParams', '$location', '$modalInstance', 'Device', 'Keen', 'Imp', 'deviceId',
-	function($scope, $stateParams, $location, $modalInstance, Device, Keen, Imp, deviceId) {
-		
+angular.module('admin').controller('EditDeviceController', ['$scope', '$stateParams', '$location', '$modalInstance', 'Device', 'Keen', 'Imp', 'deviceId', 'Authentication',
+	function($scope, $stateParams, $location, $modalInstance, Device, Keen, Imp, deviceId, Authentication) {
+
+		$scope.authentication = Authentication;
+
 		/* Controller methods */
 
 		var updateDevice = function() {
 			Imp.setDeviceName($scope.device.id, $scope.device.name, function() {});
-			Imp.setBatteryTrigger($scope.device.id, $scope.device.notification.entity.battery.value, function() {});
-			Imp.setMoistureTrigger($scope.device.id, $scope.device.notification.entity.battery.value, function() {});
+			Imp.setBatteryTrigger($scope.device.id, $scope.device.notification.entity.battery.value, function(data) {});
+			Imp.setMoistureTrigger($scope.device.id, $scope.device.notification.entity.moisture.value, function(data) {});
 		};
 
 		/* $scope methods */
