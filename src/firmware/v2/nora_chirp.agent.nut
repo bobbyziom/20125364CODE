@@ -36,7 +36,7 @@ const KEEN_WRITE_API_KEY    = "";
 // mailgun credentials
 const MG_API_KEY            = "";
 const MG_DOMAIN             = "";
-const MG_EMAIL              = "Spiio Notifications <notify@spiio.com>";
+const MG_EMAIL              = "";
 
 // 3rd party object setup
 keen        <- KeenIO(KEEN_PROJECT_ID, KEEN_WRITE_API_KEY);
@@ -89,7 +89,7 @@ device.on("keen", function(data) {
     
     if(tosend.battery <= SETUP.notification.entity.battery.value) {
         if(!SETUP.notification.entity.battery.sent) {
-            mail.multisend(SETUP.notification.contacts, "BATTERY LOW", "Battery is low (" + tosend.battery + "%) on " + SETUP.device.name + "! \n Best, spiio");
+            mail.multisend(SETUP.notification.contacts, "BATTERY LOW", "Battery is low (" + tosend.battery + "%) on " + SETUP.name + "! \n Best, spiio");
             SETUP.notification.entity.battery.sent = true;
             imp.wakeup(SETUP.notification.interval, function() {
                 SETUP.notification.entity.battery.send = false;
@@ -99,7 +99,7 @@ device.on("keen", function(data) {
     
     if(tosend.moisture <= SETUP.notification.entity.moisture.value) {
         if(!SETUP.notification.entity.moisture.sent) {
-            mail.multisend(SETUP.notification.contacts, "MOISTURE LOW", "Moisture level is low (" + tosend.moisture + "%) on " + SETUP.device.name + "! \n Best, spiio"); 
+            mail.multisend(SETUP.notification.contacts, "MOISTURE LOW", "Moisture level is low (" + tosend.moisture + "%) on " + SETUP.name + "! \n Best, spiio"); 
             SETUP.notification.entity.moisture.sent = true;
             imp.wakeup(SETUP.notification.interval, function() {
                 SETUP.notification.entity.moisture.send = false;
@@ -187,7 +187,7 @@ api.post("/setup/([^/]*)", function(context) {
 api.post("/setup/name/([^/]*)", function(context) {
     local name = context.path[2];
     SETUP.name <- name;
-    context.send(200, SETUP.device);
+    context.send(200, SETUP);
 });
 
 api.post("/setup/notification/email/add/([^/]*)", function(context) {
@@ -216,6 +216,7 @@ api.post("/setup/notification/battery/([^/]*)", function(context) {
 api.post("/setup/notification/moisture/([^/]*)", function(context) {
     local sensor = context.path[2];
     local value = context.path[3].tointeger();
+    server.log("new moisture value: " + value);
     SETUP.notification.entity[sensor].value <- value;
     save_settings();
     context.send(200, SETUP.notification.entity);

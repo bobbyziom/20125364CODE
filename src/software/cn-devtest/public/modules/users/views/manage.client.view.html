@@ -4,7 +4,25 @@
 	</div>
 	<div class="jumbotron" data-ng-show="authentication.user.roles[0] == 'super'">
 
+
+
 		<p class="text-center">User Management</p>
+
+		<div class="row">
+			<div class="col-sm-4">
+				
+			</div>
+			<div class="col-sm-4">
+				<input class="form-control text-center" type="text" data-ng-model="search" class="form-control" placeholder="Search">
+			</div>
+			<div class="col-sm-4">
+
+			</div>
+
+		</div>
+
+		<p></p>
+
 		<div class="row">
 			<table class="table">
 			  <thead>
@@ -13,17 +31,20 @@
 				  	<th>Last Name</th>
 				  	<th>Email</th>
 				  	<th>Role</th>
+				  	<th>Username</th>
 				  	<th>Action</th>
 			  	</tr>
 			  </thead>
 			  <tbody>
-			  	<tr class="text-left" ng-repeat="user in users">
+			  	<tr class="text-left" data-ng-repeat="user in users | filter:search">
 			  		<td>{{user.firstName}}</td>
 			  		<td>{{user.lastName}}</td>
 			  		<td>{{user.email}}</td>
 			  		<td>{{user.roles[0]}}</td>
+			  		<td>{{user.username}}</td>
+
 			  		<td>
-			  			<button class="btn btn-primary" ng-click="open(user._id)">
+			  			<button class="btn btn-primary" data-ng-click="open(user._id)">
 			  			<i class="glyphicon glyphicon-edit"></i>
 			  			</button>
 			  		</td>
