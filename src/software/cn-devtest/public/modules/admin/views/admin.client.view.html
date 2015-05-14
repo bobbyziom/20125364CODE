@@ -30,7 +30,7 @@
 			  			<i class="glyphicon glyphicon-edit"></i>
 			  			</button>
 			  		</td>
-			  		<td>
+			  		<td data-ng-hide="authentication.user.roles[0] !== 'super'">
 			  			<input type="checkbox" data-ng-change="updateDevice(device._id, $index)" data-ng-model="device.public">
 			  		</td>	
 			  	</tr>

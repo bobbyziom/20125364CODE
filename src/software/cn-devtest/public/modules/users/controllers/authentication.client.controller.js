@@ -13,7 +13,11 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 				$scope.authentication.user = response;
 
 				// And redirect to the index page
-				$location.path('dash');
+				if($scope.authentication.user.roles[0] !== 'guest') {
+					$location.path('dash');	
+				} else {
+					$location.path('demo');
+				}
 			}).error(function(response) {
 				$scope.error = response.message;
 			});
@@ -26,7 +30,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 
 				// And redirect to the index page
 				if($scope.authentication.user.roles[0] !== 'guest') {
-					$location.path('location');	
+					$location.path('dash');	
 				} else {
 					$location.path('demo');
 				}
