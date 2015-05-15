@@ -2,7 +2,7 @@
 # ChirpNora ![build](https://api.travis-ci.org/bobbyziom/chirp-nora.svg?branch=master)
 
 
-[![Chirp-nora](https://github.com/bobbyziom/chirp-nora/blob/master/pics/IMG_0166.JPG)](http://spiio.dk/)
+[![Chirp-nora](https://github.com/bobbyziom/chirp-nora/blob/master/pics/chirpnora.JPG)](http://spiio.dk/)
 
 ChirpNora is a combined Bachelor (Medialogy) and Master (Sustainable Design) project from Aalborg University Copenhagen, 2015.
 
