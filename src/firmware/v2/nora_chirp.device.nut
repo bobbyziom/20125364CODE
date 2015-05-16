@@ -66,11 +66,7 @@ class Tsl2561 extends Sensor {
                 lux = 0.0128*ch0 - 0.0153*ch1;
             } else if( ratio <= 1.3){
                 lux = 0.00146*ch0 - 0.00112*ch1;
-            } else {
-                    throw "Invalid lux calculation: " + ch0 + ", " + ch1;
-              return lux = null;
-            }
-    
+            } 
             // Round to 2 decimal places
             lux = (lux*100).tointeger() / 100.0;
     
