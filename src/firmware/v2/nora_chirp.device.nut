@@ -52,30 +52,33 @@ class Tsl2561 extends Sensor {
     }
     
     function convert(reg0, reg1) {
-
-        local ch0 = ((reg0[1] & 0xFF) << 8) + (reg0[0] & 0xFF);
-        local ch1 = ((reg1[1] & 0xFF) << 8) + (reg1[0] & 0xFF);
+        try {
+            local ch0 = ((reg0[1] & 0xFF) << 8) + (reg0[0] & 0xFF);
+            local ch1 = ((reg1[1] & 0xFF) << 8) + (reg1[0] & 0xFF);
+        
+            local ratio = ch1 / ch0.tofloat();
+            local lux = 0.0;
+            if (ratio <= 0.5){
+                lux = 0.0304*ch0 - 0.062*ch0*math.pow(ratio,1.4);
+            } else if( ratio <= 0.61){
+                lux = 0.0224 * ch0 - 0.031 * ch1;
+            } else if( ratio <= 0.8){
+                lux = 0.0128*ch0 - 0.0153*ch1;
+            } else if( ratio <= 1.3){
+                lux = 0.00146*ch0 - 0.00112*ch1;
+            } else {
+                    throw "Invalid lux calculation: " + ch0 + ", " + ch1;
+              return lux = null;
+            }
     
-        local ratio = ch1 / ch0.tofloat();
-        local lux = 0.0;
-        if (ratio <= 0.5){
-            lux = 0.0304*ch0 - 0.062*ch0*math.pow(ratio,1.4);
-        } else if( ratio <= 0.61){
-            lux = 0.0224 * ch0 - 0.031 * ch1;
-        } else if( ratio <= 0.8){
-            lux = 0.0128*ch0 - 0.0153*ch1;
-        } else if( ratio <= 1.3){
-            lux = 0.00146*ch0 - 0.00112*ch1;
-        } else {
-                throw "Invalid lux calculation: " + ch0 + ", " + ch1;
-          return null;
+            // Round to 2 decimal places
+            lux = (lux*100).tointeger() / 100.0;
+    
+            //server.log(format("Ch0: 0x%04X Ch1: 0x%04X Ratio: %f Lux: %f", ch0, ch1, ratio, lux));
+            return lux;
+        } catch(ex) {
+            return 0;
         }
-
-        // Round to 2 decimal places
-        lux = (lux*100).tointeger() / 100.0;
-
-        //server.log(format("Ch0: 0x%04X Ch1: 0x%04X Ratio: %f Lux: %f", ch0, ch1, ratio, lux));
-        return lux;
     }
 
 
@@ -88,7 +91,8 @@ class Tsl2561 extends Sensor {
             local reg1 = i2c.read(addr, "\xAE", 2);
             
             if (reg0 == null || reg1 == null) {
-                return callback(null);
+                // return 0 lux
+                return callback(0);
             } else {
                 // convert(reg0, reg1)
                 return callback(convert(reg0, reg1));
@@ -186,17 +190,11 @@ class Chirp25 extends Sensor {
     }
     
     function read(callback = null) {
-
         local reading = i2c.read(addr, REG_MOIST, 2);
-
         while(reading == null || reading[0] == 255 && reading[1] == 255) {
-            //server.log("reading chirp");
             reading = i2c.read(addr, REG_MOIST, 2);
-            //imp.sleep(2);
         }
-        
         callback({ pct = this.topct(reading), adc = this.toadc(reading) });
-
     }
     
 }
@@ -398,7 +396,6 @@ function connection_handler(reason) {
         foreach(b in nv.mois) {
             server.log(b);
         }
-        
         */
         
         // clear readings nv table
@@ -407,10 +404,12 @@ function connection_handler(reason) {
         // check for updates
         agent.send("update", { interval = nv.interval, collect = nv.max_collect }); 
         
+        // go to sleep when idle
+        imp.onidle(sleep);
+        
+    } else {
+        imp.onidle(sleep);
     }
-    
-    // go to sleep when idle
-    imp.onidle(sleep);
 
 } 
 
@@ -424,37 +423,43 @@ function update() {
 
 function run() {
     
+    // open power gate
     gate.open();
+    
+    // flash feedback LED with red light for reading
     feedback.danger();
     
     light.read(function(lux) {
          moisture.read(function(moist) { 
             battery.read(function(bat) {
                 
-                store.append_nv("temp", format("%0.1f", temphum.readPrevTemp()).tofloat());
-                store.append_nv("hum", format("%0.1f", temphum.readRH()).tofloat());
-                store.append_nv("lux", lux);
-                store.append_nv("mois", moist.pct);
-                store.append_nv("time", time());
-                store.append_nv("bat", bat.pct);
-                
-                feedback.success();
-                gate.close();
-                
-                // set stop timestamp for sensor collect mode (10mA)
-                collect_stop = hardware.millis();
-                
-                // log collection time
-                store.append_nv("cyc", (collect_stop - duty_start));
-                
-                /*
-                foreach(b in nv.lux) {
-                    server.log(b);
-                }
-                */
+                // collect readings from sensors if nv not full
+                if(!store.full_nv()) {
+                    // append sensors to nv persistent table
+                    store.append_nv("temp", format("%0.1f", temphum.readPrevTemp()).tofloat());
+                    store.append_nv("hum", format("%0.1f", temphum.readRH()).tofloat());
+                    store.append_nv("lux", lux);
+                    store.append_nv("mois", moist.pct);
+                    store.append_nv("time", time());
+                    store.append_nv("bat", bat.pct);
+                    
+                    // flash feedback LED with green light for finished
+                    feedback.success();
+                    
+                    // close th power gate
+                    gate.close();
+                    
+                    // set stop timestamp for sensor collect mode (10mA)
+                    collect_stop = hardware.millis();
+                    
+                    // log collection time
+                    store.append_nv("cyc", (collect_stop - duty_start));
+                   
+                } 
                 
                 // check if exeeding NV table max size
                 // if so: connect to wifi, send nv data and update device config if any changes
+                // otherwise just go to sleep again
                 
                 if(store.full_nv()) {
                     update();
@@ -462,15 +467,9 @@ function run() {
                     imp.onidle(sleep);
                 }
                 
-                // debug:
-                //agent.send("keen", reading);
-                //imp.wakeup(10, run);
-                
             });
         });
     });
- 
-    
 }
 
 function sleep() {
