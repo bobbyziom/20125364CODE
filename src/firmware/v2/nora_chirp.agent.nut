@@ -18,7 +18,7 @@ class MailGun {
     function send(_to, _subject, _message) {
         local request = http.post("https://api:" + apikey + "@api.mailgun.net/v2/" + domain + "/messages", {"Content-Type": "application/x-www-form-urlencoded"}, "from=" + from + "&to=" + _to + "&subject=" + _subject + "&text=" + _message);
         local response = request.sendsync();
-        return response.body;
+        server.log(response.body);
     }
     
     function multisend(_contacts, _subject, _message) {
@@ -45,22 +45,25 @@ api         <- Rocky({ accessControl = true, allowUnsecure = false, strictRoutin
 
 // device config and credentials (keen collection name (default: "data"))
 SETUP <- { 
-    name = "Test CN #1",
+    name = "",
     id = http.agenturl().slice(30),
     config = {
         collect = 10,
         interval = 120
     },
     reading = {
-        collect_cycle = 0,
-        humidity = 0,
-        lux = 0,
-        temp = 0,
-        moisture = 0,
-        battery = 0
+        data = {
+            collect_cycle = 0,
+            humidity = 0,
+            lux = 0,
+            temp = 0,
+            moisture = 0,
+            battery = 0
+        },
+        time = time()
     },
     notification = {
-        contacts = [ "contact@spiio.com" ],
+        contacts = [ ],
         entity = {
             battery = { value = 10, sent = false },
             moisture = { value = 35, sent = false }
@@ -85,7 +88,7 @@ device.on("keen", function(data) {
         battery = data.battery[data_index]
     }
     
-    server.log("BATTERY: " + tosend.battery + "\t" + "TRIGGER VALUE: " + SETUP.notification.entity.battery.value);
+    //server.log("BATTERY: " + tosend.battery + "\t" + "TRIGGER VALUE: " + SETUP.notification.entity.battery.value);
     
     if(tosend.battery <= SETUP.notification.entity.battery.value) {
         if(!SETUP.notification.entity.battery.sent) {
@@ -132,7 +135,7 @@ device.on("update", function(data) {
     
 });
 
-// methods
+// load settings from persistent
 function load_settings() {
     
     local loaded = server.load();
@@ -154,6 +157,7 @@ function load_settings() {
     
 }
 
+// save settings to persistent
 function save_settings() {
     
     server.log(http.jsonencode(SETUP));
@@ -174,7 +178,7 @@ api.get("/read", function(context) {
 });
 
 api.get("/mail/([^/]*)", function(context) {
-    mail.multisend(SETUP.notification.contacts, "TESTING", context.path[1]);
+    mail.send("dal@graulund.net", "TESTING", context.path[1]);
     context.send(200, "Mail sent!") 
 });
 
@@ -194,6 +198,7 @@ api.post("/setup/notification/email/add/([^/]*)", function(context) {
     local email = context.path[4];
     SETUP.notification.contacts.push(email);
     save_settings();
+    server.log(SETUP.notification.contacts);
     context.send(200, SETUP.notification.contacts);
 });
 
