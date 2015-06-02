@@ -9,11 +9,11 @@ angular.module('core').factory('Imp', [ '$http',
 
 		// Public API
 		return {
-			setup: function(impId, name, callback) {
+			setup: function(impId, callback) {
 
 				var req = {
 					method: 'POST',
-					url: agentUrl + impId + '/setup/' + name,
+					url: agentUrl + impId + '/setup',
 					headers: {'Content-Type': 'application/json'},
 				};
 

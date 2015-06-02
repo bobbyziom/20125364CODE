@@ -30,8 +30,9 @@ angular.module('admin').controller('AdminController', ['$scope', '$modal', 'Devi
 
 			// send config to device and get back device setup
 			// then store in database
-			Imp.setup($scope.id, $scope.name, function(setup) {
+			Imp.setup($scope.id, function(setup) {
 				setup.id = $scope.id;
+				setup.name = $scope.name;
 				Device.create(setup, function(data) {
 					$scope.refresh();
 				});
