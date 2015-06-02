@@ -30,22 +30,21 @@ class MailGun {
 }
 
 // keen tokens
-const KEEN_PROJECT_ID       = "";
-const KEEN_WRITE_API_KEY    = "";
+const KEEN_PROJECT_ID       = "5506b201672e6c4a103511d7";
+const KEEN_WRITE_API_KEY    = "130d3273c5071b58a42c2bb09b4ae7ff0863b2d90c1f047df2635b2481ebd2d15373f4fe610023d2fb427a17d3f9840af1be7021595fff43c2adebc2317314af99b4aa271393068c9faee52209d03bebd54ee644f4ebe3b9bcc9abfb2902bccc8dcce8be0169e568c87843a394cf6b76";
 
 // mailgun credentials
-const MG_API_KEY            = "";
-const MG_DOMAIN             = "";
-const MG_EMAIL              = "";
+const MG_API_KEY            = "key-628c937d33ab988ac72edaf04b73a6c6";
+const MG_DOMAIN             = "sandbox9a94f840a24f478fa76e80bb52b9c155.mailgun.org";
+const MG_EMAIL              = "Spiio Notifications <notify@spiio.com>";
 
 // 3rd party object setup
 keen        <- KeenIO(KEEN_PROJECT_ID, KEEN_WRITE_API_KEY);
 mail        <- MailGun(MG_API_KEY, MG_DOMAIN, MG_EMAIL);
 api         <- Rocky({ accessControl = true, allowUnsecure = false, strictRouting = false, timeout = 10 });
 
-// device config and credentials (keen collection name (default: "data"))
+// device config and credentials
 SETUP <- { 
-    name = "",
     id = http.agenturl().slice(30),
     config = {
         collect = 10,
@@ -94,6 +93,7 @@ device.on("keen", function(data) {
         if(!SETUP.notification.entity.battery.sent) {
             mail.multisend(SETUP.notification.contacts, "BATTERY LOW", "Battery is low (" + tosend.battery + "%) on " + SETUP.name + "! \n Best, spiio");
             SETUP.notification.entity.battery.sent = true;
+            SETUP.notification.entity.battery.timestamp = time();
             imp.wakeup(SETUP.notification.interval, function() {
                 SETUP.notification.entity.battery.send = false;
             });
@@ -104,6 +104,7 @@ device.on("keen", function(data) {
         if(!SETUP.notification.entity.moisture.sent) {
             mail.multisend(SETUP.notification.contacts, "MOISTURE LOW", "Moisture level is low (" + tosend.moisture + "%) on " + SETUP.name + "! \n Best, spiio"); 
             SETUP.notification.entity.moisture.sent = true;
+            SETUP.notification.entity.moisture.timestamp = time();
             imp.wakeup(SETUP.notification.interval, function() {
                 SETUP.notification.entity.moisture.send = false;
             });
@@ -142,17 +143,17 @@ function load_settings() {
     
     if (loaded.len() != 0) {
         SETUP <- loaded;
-        foreach(sensor in SETUP.notification.entity) {
+        foreach(i, sensor in SETUP.notification.entity) {
+            server.log(i + ": " + sensor.sent);
             if(sensor.sent) {
-                imp.wakeup(1, function() { 
-                    sensor.sent = false;
-                });
+                sensor.sent = false;
+                server.log(i + ": " + sensor.sent);
             }
         }
-        server.log("settings loaded: " + http.jsonencode(SETUP));
+        server.log(http.jsonencode(SETUP.notification));
     } else {
         server.log("No settings to load ...");
-        server.log("collection = " + SETUP.device.collection);
+        server.log("collection = " + SETUP.id);
     }
     
 }
@@ -186,12 +187,6 @@ api.post("/setup/([^/]*)", function(context) {
     local name = context.path[1];
     SETUP.name   <- name;
     context.send(200, SETUP); 
-});
-
-api.post("/setup/name/([^/]*)", function(context) {
-    local name = context.path[2];
-    SETUP.name <- name;
-    context.send(200, SETUP);
 });
 
 api.post("/setup/notification/email/add/([^/]*)", function(context) {

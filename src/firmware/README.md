@@ -46,13 +46,6 @@ endpoint path: /setup/<name>
 method: POST
 ```
 
-#### Change device name
-
-```
-endpoint path: /setup/collection/<device-name>
-method: POST
-```
-
 #### Add email to notification subscriptions
 
 ```

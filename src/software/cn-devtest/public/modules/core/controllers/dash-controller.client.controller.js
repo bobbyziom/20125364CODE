@@ -6,6 +6,8 @@ angular.module('core').controller('DashControllerController', ['$scope', '$filte
 		var _projectId = null; 
 		var _readKey = null;
 
+		$scope.interval = 3;
+
 		$scope.read = function() {
 			Imp.getReading($scope.eventCollection.id, function(data) {
 				$scope.readings = data;
@@ -19,7 +21,6 @@ angular.module('core').controller('DashControllerController', ['$scope', '$filte
 		    	projectId: _projectId,
 		    	readKey: _readKey
 			});
-			
 
 			var queryTable = [ 
 			    { amount: 1, semantic: 'days' },
@@ -32,7 +33,7 @@ angular.module('core').controller('DashControllerController', ['$scope', '$filte
 
 			$scope.read();
 
-			//console.log($scope.eventCollection);
+			//console.log($scope.eventCollection._id);
 
 			var chart = new Keen.Dataviz()
 		    .el(document.getElementById('qual'))
@@ -140,11 +141,12 @@ angular.module('core').controller('DashControllerController', ['$scope', '$filte
 				_readKey = _keen.readKey;
 				_projectId = _keen.projectId;
 				Device.list(function(_data) {
+
 					$scope.eventCollections = _data;
 					// if on the demo page
-					// show only public marked devices
+					// show only public flagged devices
 					if($location.path() === '/demo') {
-						$scope.eventCollections = $filter('filter')($scope.eventCollections, { public: true} );
+						$scope.eventCollections = $filter('filter')($scope.eventCollections, { public: true } );
 						$scope.eventCollection = $scope.eventCollections[0];
 					} else {
 						$scope.eventCollection = $scope.eventCollections[0];

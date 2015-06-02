@@ -8,7 +8,6 @@ angular.module('admin').controller('EditDeviceController', ['$scope', '$statePar
 		/* Controller methods */
 
 		var updateDevice = function() {
-			Imp.setDeviceName($scope.device.id, $scope.device.name, function() {});
 			Imp.setBatteryTrigger($scope.device.id, $scope.device.notification.entity.battery.value, function(data) {});
 			Imp.setMoistureTrigger($scope.device.id, $scope.device.notification.entity.moisture.value, function(data) {});
 		};

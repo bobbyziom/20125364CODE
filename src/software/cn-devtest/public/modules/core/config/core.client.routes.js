@@ -17,6 +17,10 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 			url: '/dash',
 			templateUrl: 'modules/core/views/dash.client.view.html'
 		}).
+		state('showDash', {
+			url: '/dash/:deviceId',
+			templateUrl: 'modules/core/views/dash.client.view.html'
+		}).
 		state('home', {
 			url: '/',
 			templateUrl: 'modules/core/views/home.client.view.html'
