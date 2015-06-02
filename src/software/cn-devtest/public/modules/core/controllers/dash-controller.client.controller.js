@@ -99,33 +99,30 @@ angular.module('core').controller('DashControllerController', ['$scope', '$filte
 		      interval: _interval
 		    });
 
-		    keen.run([humidity, moist, temp, batt], function(err, res){ // run the queries
+		    keen.run([moist, temp, light], function(err, res){ // run the queries
 
 		      if (err) {
 		        chart.error(err.message);
 		      } else {
 		        
-
-		        var humidity = res[0].result;  // data from first query
-		        var moist = res[1].result;  // data from second query
-		        var temp = res[2].result;  // data from third query
-		        var batt = res[3].result;  // data from fourth query
+		        var moist = res[0].result;  // data from second query
+		        var temp = res[1].result;  // data from third query
+		        var lux = res[2].result;  // data from fourth query
 
 		        var data = [];  // place for combined results
 		        var i=0;
 
-		        while (i < humidity.length) {
+		        while (i < moist.length) {
 
 		            data[i]={ // format the data so it can be charted
-		                timeframe: humidity[i].timeframe,
+		                timeframe: temp[i].timeframe,
 		                value: [
-		                    { category: 'Humidity', result: humidity[i].value },
 		                    { category: 'Moisture', result: moist[i].value },
 		                    { category: 'Temperature', result: temp[i].value },
-		                    { category: 'Battery', result: batt[i].value }
+		                    { category: 'Lux / 10', result: lux[i].value/10 }
 		                ]
 		            };
-		            if (i === humidity.length-1) { // chart the data
+		            if (i === moist.length-1) { // chart the data
 		              chart
 		                .parseRawData({ result: data })
 		                .render();
