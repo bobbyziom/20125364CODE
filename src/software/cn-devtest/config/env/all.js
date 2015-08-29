@@ -26,6 +26,7 @@ module.exports = {
 				'public/lib/angular-ui-router/release/angular-ui-router.js',
 				'public/lib/angular-ui-utils/ui-utils.js',
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
+				'public/lib/angular-route/angular-route.js',
 				'public/lib/keen-js/dist/keen.js',
 				'public/lib/angular-keenio/dist/angular-keenio.js',
 				'public/lib/raphael/raphael-min.js',
