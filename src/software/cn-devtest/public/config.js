@@ -9,13 +9,12 @@ var ApplicationConfiguration = (function() {
 		'ngCookies',  
 		'ngAnimate',  
 		'ngTouch',  
-		'ngSanitize',  
+		'ngSanitize', 
 		'ui.router', 
 		'ui.bootstrap', 
 		'ui.utils', 
 		'angular-keenio',
-		'ngJustGage',
-		'ngRoute'
+		'ngJustGage'
 	];
 
 	// Add a new vertical module
