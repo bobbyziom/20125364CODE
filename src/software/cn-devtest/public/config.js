@@ -14,7 +14,8 @@ var ApplicationConfiguration = (function() {
 		'ui.bootstrap', 
 		'ui.utils', 
 		'angular-keenio',
-		'ngJustGage'
+		'ngJustGage',
+		'ngRoute'
 	];
 
 	// Add a new vertical module
