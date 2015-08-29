@@ -17,7 +17,8 @@
     "angular-ui-router": "~0.2.11",
     "angular-ui-utils": "~0.1.1",
     "bootstrap": "~3",
-    "jquery": "~2.1.4"
+    "jquery": "~2.1.4",
+    "keen-js": "~3.2.7"
   },
   "resolution": {
     "angular": "~1.2"
