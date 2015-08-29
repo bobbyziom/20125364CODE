@@ -21,6 +21,6 @@
     "keen-js": "~3.2.7"
   },
   "resolution": {
-    "angular": "~1.2"
+    "angular": "~1.4"
   }
 }
