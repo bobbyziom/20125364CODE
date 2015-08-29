@@ -16,5 +16,8 @@
     "angular-ui-router": "~0.2.11",
     "angular-keenio": "~0.0.3",
     "angular-justgage": "~1.0.0"
+  },
+  "resolution": {
+    "angular": "~1.2"
   }
 }
