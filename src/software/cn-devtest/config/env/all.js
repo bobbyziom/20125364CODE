@@ -19,7 +19,6 @@ module.exports = {
 			js: [
 				'public/lib/angular/angular.js',
 				'public/lib/angular-resource/angular-resource.js', 
-				'public/lib/angular-route/angular-route.js',
 				'public/lib/angular-cookies/angular-cookies.js', 
 				'public/lib/angular-animate/angular-animate.js', 
 				'public/lib/angular-touch/angular-touch.js', 
@@ -27,6 +26,7 @@ module.exports = {
 				'public/lib/angular-ui-router/release/angular-ui-router.js',
 				'public/lib/angular-ui-utils/ui-utils.js',
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
+				'public/lib/angular-route/angular-route.js',
 				'public/lib/keen-js/dist/keen.js',
 				'public/lib/angular-keenio/dist/angular-keenio.js',
 				'public/lib/raphael/raphael-min.js',

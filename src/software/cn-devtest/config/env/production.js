@@ -18,9 +18,9 @@ module.exports = {
 				'public/lib/angular-ui-router/release/angular-ui-router.min.js',
 				'public/lib/angular-ui-utils/ui-utils.min.js',
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.min.js',
+				'public/lib/angular-route/angular-route.js',
 				'public/lib/keen-js/dist/keen.js',
-				'public/lib/angular-keenio/dist/angular-keenio.js',
-				'public/lib/angular-route/angular-route.js'
+				'public/lib/angular-keenio/dist/angular-keenio.js'
 			]
 		},
 		css: 'public/dist/application.min.css',
