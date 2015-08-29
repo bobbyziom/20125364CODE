@@ -16,7 +16,8 @@
     "angular-touch": "~1.2",
     "angular-ui-router": "~0.2.11",
     "angular-ui-utils": "~0.1.1",
-    "bootstrap": "~3"
+    "bootstrap": "~3",
+    "jquery": "~2.1.4"
   },
   "resolution": {
     "angular": "~1.2"
