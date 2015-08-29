@@ -5,7 +5,6 @@ var ApplicationConfiguration = (function() {
 	// Init module configuration options
 	var applicationModuleName = 'cn-devtest';
 	var applicationModuleVendorDependencies = [ 
-		'ngRoute',
 		'ngResource', 
 		'ngCookies',  
 		'ngAnimate',  
